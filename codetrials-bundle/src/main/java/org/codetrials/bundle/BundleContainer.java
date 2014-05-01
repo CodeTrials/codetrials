@@ -2,6 +2,7 @@ package org.codetrials.bundle;
 
 import org.codetrials.bundle.entities.CommandOutput;
 import org.codetrials.bundle.entities.ExecutionResult;
+import org.codetrials.bundle.entities.TaskDescription;
 import org.codetrials.bundle.entities.TaskReaction;
 
 /**
@@ -33,7 +34,15 @@ public abstract class BundleContainer {
 
     public abstract String getBundleDescription();
 
-    public abstract Task getCurrentTask();
+    public TaskDescription getTaskDescription() {
+        return getCurrentTask().getDescription();
+    }
+
+    public abstract int getCurrentStepNumber();
+
+    public abstract int getTotalStepsCount();
+
+    protected abstract Task getCurrentTask();
 
     protected abstract void moveToNextTask();
 
