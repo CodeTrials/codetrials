@@ -1,4 +1,7 @@
-package org.codetrials.bundle;
+package org.codetrials.bundle.helpers;
+
+import org.codetrials.bundle.BundleContainer;
+import org.codetrials.bundle.Task;
 
 import java.util.ArrayList;
 import java.util.List;

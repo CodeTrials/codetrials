@@ -26,7 +26,11 @@ public abstract class BundleContainer {
                 return null;
             }
         } else {
-            return null;
+            reaction = currentTask.onCommandExecuted(command, null);
+            if (currentTask.isCompleted()) {
+                moveToNextTask();
+            }
+            return new CommandOutput(reaction, null);
         }
     }
 

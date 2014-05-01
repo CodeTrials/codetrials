@@ -7,14 +7,30 @@ import org.codetrials.bundle.entities.TaskReaction;
 /**
  * @author Polyarnyi Nikolay
  */
-public interface Task {
+public abstract class Task {
 
-    TaskDescription getDescription();
+    private final TaskDescription taskDescription;
 
-    boolean isCompleted();
+    protected Task(String title, String description) {
+        this.taskDescription = new TaskDescription(title, description);
+    }
 
-    boolean isCommandExecutable(String command);
+    public TaskDescription getDescription() {
+        return taskDescription;
+    }
 
-    TaskReaction onCommandExecuted(String command, ExecutionResult e);
+    public abstract boolean isCompleted();
+
+    /**
+     * Can be overriden to interpret some user input as commands to task - NOT as language command. For example "next"
+     * to move to next step. This possibility can be used to improve interactivity with current task.
+     * @param command command, that should be checked
+     * @return true, if command must be executed as language instruction. Or false, if command is to signalize smth to task.
+     */
+    public boolean isCommandExecutable(String command) {
+        return true;
+    }
+
+    public abstract TaskReaction onCommandExecuted(String command, ExecutionResult e);
 
 }
