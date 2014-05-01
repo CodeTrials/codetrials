@@ -11,8 +11,8 @@ public abstract class Task {
 
     private final TaskDescription taskDescription;
 
-    protected Task(String title, String description) {
-        this.taskDescription = new TaskDescription(title, description);
+    protected Task(TaskDescription taskDescription) {
+        this.taskDescription = taskDescription;
     }
 
     public TaskDescription getDescription() {

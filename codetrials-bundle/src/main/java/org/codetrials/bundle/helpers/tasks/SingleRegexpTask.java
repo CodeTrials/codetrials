@@ -2,6 +2,7 @@ package org.codetrials.bundle.helpers.tasks;
 
 import org.codetrials.bundle.Task;
 import org.codetrials.bundle.entities.ExecutionResult;
+import org.codetrials.bundle.entities.TaskDescription;
 import org.codetrials.bundle.entities.TaskReaction;
 
 /**
@@ -12,8 +13,8 @@ public class SingleRegexpTask extends Task {
     private final String regexp;
     private boolean completed;
 
-    public SingleRegexpTask(String title, String description, String regexp) {
-        super(title, description);
+    public SingleRegexpTask(TaskDescription taskDescription, String regexp) {
+        super(taskDescription);
         this.regexp = regexp;
         this.completed = false;
     }

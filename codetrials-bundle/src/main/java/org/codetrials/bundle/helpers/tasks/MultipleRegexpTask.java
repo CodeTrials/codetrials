@@ -2,6 +2,7 @@ package org.codetrials.bundle.helpers.tasks;
 
 import org.codetrials.bundle.Task;
 import org.codetrials.bundle.entities.ExecutionResult;
+import org.codetrials.bundle.entities.TaskDescription;
 import org.codetrials.bundle.entities.TaskReaction;
 
 /**
@@ -17,15 +18,15 @@ public class MultipleRegexpTask extends Task {
     private boolean completed;
 
     /**
-     * @param title for example: "Math arithmetics"
-     * @param description for example: "Try to repeat some math! Use some of this operations: 3 + 5, 2 - 1, 4 * 9.
-     *                    When you will satisfied - enter "next" command."
-     * @param hint for example: "Try command: "5+3"! Or "next" - to move for next task!"
-     * @param finishCommand for example: "next"
-     * @param commands regexps for this task. For example: new String[]{".*\\+.*", ".*\\*.*", ".*-.*"}
+     * @param taskDescription for example title: "Math arithmetics"
+     *                        for example description: "Try to repeat some math! Use some of this operations: 3 + 5, 2 - 1, 4 * 9.
+     *                        When you will satisfied - enter "next" command."
+     * @param hint            for example: "Try command: "5+3"! Or "next" - to move for next task!"
+     * @param finishCommand   for example: "next"
+     * @param commands        regexps for this task. For example: new String[]{".*\\+.*", ".*\\*.*", ".*-.*"}
      */
-    public MultipleRegexpTask(String title, String description, String hint, String finishCommand, String... commands) {
-        super(title, description);
+    public MultipleRegexpTask(TaskDescription taskDescription, String hint, String finishCommand, String... commands) {
+        super(taskDescription);
         this.hint = hint;
         this.regexps = commands;
         this.finishCommand = finishCommand;
@@ -43,7 +44,7 @@ public class MultipleRegexpTask extends Task {
             return false;
         }
         for (String regexp : regexps) {
-            if(command.matches(regexp)) {
+            if (command.matches(regexp)) {
                 return true;
             }
         }
@@ -56,8 +57,11 @@ public class MultipleRegexpTask extends Task {
             this.completed = true;
             return new TaskReaction();
         }
+        if (e.getException() != null) {
+            return new TaskReaction(hint);
+        }
         for (String regexp : regexps) {
-            if(command.matches(regexp)) {
+            if (command.matches(regexp)) {
                 return new TaskReaction();
             }
         }
