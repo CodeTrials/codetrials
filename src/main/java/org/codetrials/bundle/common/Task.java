@@ -1,5 +1,7 @@
 package org.codetrials.bundle.common;
 
+import org.codetrials.bundle.common.entities.ExecutionResult;
+import org.codetrials.bundle.common.entities.TaskDescription;
 import org.codetrials.bundle.common.exceptions.CommandException;
 
 /**
@@ -7,18 +9,12 @@ import org.codetrials.bundle.common.exceptions.CommandException;
  */
 public interface Task {
 
-    String getTitle();
-
-    String getDescription();
-
-    TaskReaction onCommandEntered(String command);
-
-    String onCommandException(CommandException e);
+    TaskDescription getDescription();
 
     boolean isCompleted();
 
     boolean isCommandExecutable(String command);
 
-    String onCommandExecuted(String command, String executionOutput);
+    String onCommandExecuted(ExecutionResult e);
 
 }

@@ -1,8 +1,9 @@
 package org.codetrials.bundle.common;
 
+import org.codetrials.bundle.common.entities.CommandOutput;
+import org.codetrials.bundle.common.entities.ExecutionResult;
+import org.codetrials.bundle.common.entities.TaskReaction;
 import org.codetrials.bundle.common.exceptions.CommandException;
-
-import java.util.List;
 
 /**
  * @author Polyarnyi Nikolay
@@ -11,24 +12,16 @@ public abstract class BundleContainer {
 
     public CommandOutput processCommand(String command) {
         Task currentTask = getCurrentTask();
-        String reaction;
-        String executionOutput = null;
-        String exceptionOutput = null;
+        TaskReaction reaction = null;
+        ExecutionResult executionResult = null;
         if (currentTask.isCommandExecutable(command)) {
-            try {
-                executionOutput = executeCommand(command);// TODO: NOT WORK CE/RE ex
-                reaction = currentTask.onCommandExecuted(command, executionOutput);
-            } catch (CommandException e) {
-                exceptionOutput = e.getMessage();
-                reaction = currentTask.onCommandException(e);
-            }
-        } else {
-            reaction = null;
+            executionResult = executeCommand(command);
         }
+        reaction = currentTask.onCommandExecuted(command, executionResult);
         if (currentTask.isCompleted()) {
             moveToNextTask();
         }
-        return new CommandOutput(reaction, executionOutput, exceptionOutput);
+        return new CommandOutput(reaction, executionResult);
     }
 
     public abstract String getBundleName();
@@ -37,10 +30,9 @@ public abstract class BundleContainer {
 
     public abstract Task getCurrentTask();
 
-    protected void moveToNextTask() {
+    protected abstract void moveToNextTask();
 
-    }
+    protected abstract ExecutionResult executeCommand(String command);
 
-    protected abstract String executeCommand(String command) throws CommandException;
 
 }
