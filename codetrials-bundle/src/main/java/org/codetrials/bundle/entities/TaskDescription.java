@@ -5,8 +5,8 @@ package org.codetrials.bundle.entities;
  */
 public class TaskDescription {
 
-    private String title;
-    private String description;
+    private final String title;
+    private final String description;
 
     public TaskDescription(String title, String description) {
         this.title = title;

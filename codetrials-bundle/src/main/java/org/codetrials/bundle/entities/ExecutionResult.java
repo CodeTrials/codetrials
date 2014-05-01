@@ -2,10 +2,15 @@ package org.codetrials.bundle.entities;
 
 import org.codetrials.bundle.exceptions.CommandException;
 
+/**
+ * Result of executing command.
+ *
+ * @author Polyarnyi Nikolay
+ */
 public class ExecutionResult {
 
-    private String executionOutput;
-    private CommandException exception;
+    private final String executionOutput;
+    private final CommandException exception;
 
     private ExecutionResult(String executionOutput, CommandException exception) {
         this.executionOutput = executionOutput;

@@ -1,6 +1,9 @@
 package org.codetrials.bundle.entities;
 
 /**
+ * Command output, that contain reaction of teaching environment, execution result and execution exception - runtime
+ * or compile time.
+ *
  * @author Polyarnyi Nikolay
  */
 public class CommandOutput {

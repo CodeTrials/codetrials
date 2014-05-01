@@ -11,16 +11,22 @@ public abstract class BundleContainer {
 
     public CommandOutput processCommand(String command) {
         Task currentTask = getCurrentTask();
-        TaskReaction reaction = null;
-        ExecutionResult executionResult = null;
+        TaskReaction reaction;
+        ExecutionResult executionResult;
         if (currentTask.isCommandExecutable(command)) {
             executionResult = executeCommand(command);
+            if (executionResult != null) {
+                reaction = currentTask.onCommandExecuted(command, executionResult);
+                if (currentTask.isCompleted()) {
+                    moveToNextTask();
+                }
+                return new CommandOutput(reaction, executionResult);
+            } else {
+                return null;
+            }
+        } else {
+            return null;
         }
-        reaction = currentTask.onCommandExecuted(command, executionResult);
-        if (currentTask.isCompleted()) {
-            moveToNextTask();
-        }
-        return new CommandOutput(reaction, executionResult);
     }
 
     public abstract String getBundleName();
