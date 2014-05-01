@@ -1,5 +1,6 @@
 package org.codetrials.bundle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,12 +10,10 @@ import java.util.List;
  */
 public abstract class SimpleBundleContainer extends BundleContainer {
 
-    private final List<Task> tasks;
+    private final List<Task> tasks = createTasks();
     private int currentStep = 0;
 
-    protected SimpleBundleContainer(List<Task> tasks) {
-        this.tasks = tasks;
-    }
+    abstract protected List<Task> createTasks();
 
     @Override
     public int getCurrentStepNumber() {
