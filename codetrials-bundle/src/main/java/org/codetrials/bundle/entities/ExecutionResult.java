@@ -1,6 +1,6 @@
-package org.codetrials.bundle.common.entities;
+package org.codetrials.bundle.entities;
 
-import org.codetrials.bundle.common.exceptions.CommandException;
+import org.codetrials.bundle.exceptions.CommandException;
 
 public class ExecutionResult {
 

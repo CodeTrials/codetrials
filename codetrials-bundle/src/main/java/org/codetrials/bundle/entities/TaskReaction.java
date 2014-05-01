@@ -1,4 +1,4 @@
-package org.codetrials.bundle.common.entities;
+package org.codetrials.bundle.entities;
 
 /**
  * @author Polyarnyi Nikolay

@@ -1,9 +1,8 @@
-package org.codetrials.bundle.common;
+package org.codetrials.bundle;
 
-import org.codetrials.bundle.common.entities.CommandOutput;
-import org.codetrials.bundle.common.entities.ExecutionResult;
-import org.codetrials.bundle.common.entities.TaskReaction;
-import org.codetrials.bundle.common.exceptions.CommandException;
+import org.codetrials.bundle.entities.CommandOutput;
+import org.codetrials.bundle.entities.ExecutionResult;
+import org.codetrials.bundle.entities.TaskReaction;
 
 /**
  * @author Polyarnyi Nikolay

@@ -1,4 +1,4 @@
-package org.codetrials.bundle.common.exceptions;
+package org.codetrials.bundle.exceptions;
 
 /**
  * @author Polyarnyi Nikolay
