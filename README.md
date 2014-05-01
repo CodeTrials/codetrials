@@ -1,4 +1,4 @@
 codetrials
 ==========
 
-Main repo
+main repo
