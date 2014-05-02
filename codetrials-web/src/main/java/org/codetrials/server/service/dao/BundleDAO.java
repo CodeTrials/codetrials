@@ -1,5 +1,6 @@
 package org.codetrials.server.service.dao;
 
+import org.codetrials.shared.entities.BundleDescription;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
