@@ -1,7 +1,7 @@
 package org.codetrials.client.core.logging;
 
 import com.google.gwt.core.client.JavaScriptObject;
-import org.codetrials.client.core.natives.JsArray;
+import org.codetrials.client.core.natives.JsList;
 
 /**
  * @author Nikita Zyulyaev
@@ -27,19 +27,19 @@ public class Logger extends JavaScriptObject {
     }-*/;
 
 
-    public final native void log(JsArray<?> messages) /*-{
+    public final native void log(JsList<?> messages) /*-{
         console.log.apply(console, messages);
     }-*/;
 
-    public final native void info(JsArray<?> messages) /*-{
+    public final native void info(JsList<?> messages) /*-{
         console.info.apply(console, messages);
     }-*/;
 
-    public final native void warn(JsArray<?> messages) /*-{
+    public final native void warn(JsList<?> messages) /*-{
         console.warn.apply(console, messages);
     }-*/;
 
-    public final native void error(JsArray<?> messages) /*-{
+    public final native void error(JsList<?> messages) /*-{
         console.error.apply(console, messages);
     }-*/;
 }

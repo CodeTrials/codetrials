@@ -1,7 +1,7 @@
 package org.codetrials.client.core.events;
 
 import org.codetrials.client.core.logging.Log;
-import org.codetrials.client.core.natives.JsArray;
+import org.codetrials.client.core.natives.JsList;
 import org.codetrials.client.core.natives.JsMap;
 import org.codetrials.client.core.natives.NativeUtils;
 
@@ -25,7 +25,7 @@ class EventBusImpl implements EventBus {
 
     private static <T> void fireAll(CopyOnWriteJsList<Handler<?>> handlers, final T value) {
         if (handlers == null) return;
-        JsArray<Handler<?>> data = handlers.getData();
+        JsList<Handler<?>> data = handlers.getData();
         for (int i = 0, len = data.length(); i < len; ++i) {
             Handler<T> handler = (Handler<T>) data.get(i);
             try {

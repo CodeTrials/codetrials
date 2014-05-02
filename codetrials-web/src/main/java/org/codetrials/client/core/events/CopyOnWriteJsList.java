@@ -1,20 +1,20 @@
 package org.codetrials.client.core.events;
 
-import org.codetrials.client.core.natives.JsArray;
+import org.codetrials.client.core.natives.JsList;
 import org.codetrials.client.core.natives.NativeUtils;
 
 /**
  * @author Nikita Zyulyaev
  */
 class CopyOnWriteJsList<E> {
-    private JsArray<E> data;
+    private JsList<E> data;
 
     CopyOnWriteJsList() {
-        data = NativeUtils.array();
+        data = NativeUtils.list();
     }
 
     CopyOnWriteJsList(E element) {
-        data = NativeUtils.array(element);
+        data = NativeUtils.listOf(element);
     }
 
     void add(E element) {
@@ -40,7 +40,7 @@ class CopyOnWriteJsList<E> {
         data = data.slice(0);
     }
 
-    JsArray<E> getData() {
+    JsList<E> getData() {
         return data;
     }
 }
