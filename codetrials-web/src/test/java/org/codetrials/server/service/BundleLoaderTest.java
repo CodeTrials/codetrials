@@ -10,7 +10,7 @@ import org.junit.Test;
  */
 public class BundleLoaderTest {
 
-//    @Test
+    @Test
     public void testBundleLoading() throws Exception {
         BundleLoader loader = new BundleLoader();
         BundleContainer bundle = loader.createBundleContainer(Resources.getResource("javascript-tutorial-bundle-1.0-SNAPSHOT.jar"));

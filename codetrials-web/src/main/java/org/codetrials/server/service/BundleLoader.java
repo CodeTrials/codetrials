@@ -4,11 +4,15 @@ import org.codetrials.bundle.BundleContainer;
 import org.codetrials.server.exceptions.MissingBundleAttributeException;
 import org.codetrials.server.utils.JarFileClassLoader;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.jar.Attributes;
+import java.util.jar.JarFile;
 import java.util.jar.Manifest;
 
 /**
@@ -16,29 +20,26 @@ import java.util.jar.Manifest;
  */
 public class BundleLoader {
 
-    private static final String BUNDLE_CONTAINER_MANIFEST_ATTRIBUTE = "Bundle-Container";
+    private static final String BUNDLE_CONTAINER_MANIFEST_ATTRIBUTE = "Bundle";
 
-    Map<String, JarFileClassLoader> classLoaders;
+    Map<String, Class<BundleContainer>> cachedClasses;
 
     public BundleLoader() {
-        this.classLoaders = new HashMap<>();
+        this.cachedClasses = new HashMap<>();
     }
 
     public BundleContainer createBundleContainer(URL pathToJar) throws IOException, IllegalAccessException, InstantiationException, ClassNotFoundException, MissingBundleAttributeException {
-        JarFileClassLoader classLoader = classLoaders.get(pathToJar);
-        if (classLoader == null) {
-            classLoader = new JarFileClassLoader(pathToJar);
-            classLoaders.put(pathToJar.toString(), classLoader);
+        Class<BundleContainer> bundleClass = cachedClasses.get(pathToJar.toString());
+        if (bundleClass == null) {
+            JarFile jar = new JarFile(new File(pathToJar.getFile()));
+            Manifest manifest = jar.getManifest();
+            Attributes attributes = manifest.getAttributes(BUNDLE_CONTAINER_MANIFEST_ATTRIBUTE);
+            String className = attributes.getValue(BUNDLE_CONTAINER_MANIFEST_ATTRIBUTE);
+            JarFileClassLoader classLoader = new JarFileClassLoader(pathToJar);
+            bundleClass = (Class<BundleContainer>) classLoader.loadClass(className);
+            cachedClasses.put(pathToJar.toString(), bundleClass);
         }
-        URL manifestUrl = classLoader.getResource("META-INF/MANIFEST.MF");
-        if (manifestUrl == null) {
-            throw new MissingBundleAttributeException();
-        }
-        Manifest manifest = new Manifest(manifestUrl.openStream());
-        Attributes attributes = manifest.getAttributes(BUNDLE_CONTAINER_MANIFEST_ATTRIBUTE);
-        String className = attributes.getValue(BUNDLE_CONTAINER_MANIFEST_ATTRIBUTE);
-        Class bundleClass = classLoader.loadClass(className);
-        return (BundleContainer) bundleClass.newInstance();
+        return bundleClass.newInstance();
     }
 
 }
