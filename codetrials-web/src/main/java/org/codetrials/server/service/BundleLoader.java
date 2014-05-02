@@ -3,7 +3,6 @@ package org.codetrials.server.service;
 import org.codetrials.bundle.BundleContainer;
 import org.codetrials.bundle.helpers.ResourceLoader;
 import org.codetrials.server.exceptions.InvalidBundleException;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
