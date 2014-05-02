@@ -34,6 +34,7 @@ public class JavaScriptEngine implements BundleEngine {
             return new ExecutionResult(null, new CommandException("Wrong brace sequence"));
         }
         pw.println(command);
+        pw.flush();
         if (balance == 0) {
             ByteArrayOutputStream bout = new ByteArrayOutputStream();
             try {
