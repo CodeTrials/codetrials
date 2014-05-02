@@ -109,6 +109,6 @@ class TrialPresenterImpl extends BasePresenter<TrialView> implements TrialPresen
     private void onTaskChange(Task task) {
         this.currentTask = task;
         view.setTaskLegend(task.getTitle(), Markdown.convert(task.getDescription()));
-        view.setProgress(task.getID(), currentTrial.getTaskCount());
+        view.setProgress(task.getID() + 1, currentTrial.getTaskCount());
     }
 }
