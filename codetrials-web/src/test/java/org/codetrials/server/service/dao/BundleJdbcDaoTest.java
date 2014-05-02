@@ -25,7 +25,7 @@ public class BundleJdbcDaoTest {
         final String bundleName = "js bundle";
         DataSource ds = getDriverManagerDataSource();
         BundleDAO bDAO = new BundleJdbcDao(ds, null);
-        bDAO.addBundle(bundleName, null);
+        bDAO.addBundle(bundleName, (byte[]) null);
         List<BundleDescription> list = bDAO.getAllBundlesDescriptions();
         assertEquals(list.size(), 1);
         assertEquals(bundleName, list.get(0).getTitle());
