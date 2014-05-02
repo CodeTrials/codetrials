@@ -16,4 +16,8 @@ public class JqueryConsoleController extends JavaScriptObject {
     public final native void promptText(String text) /*-{
         this.promptText(text);
     }-*/;
+
+    public final native void setPromptContinued(boolean continued) /*-{
+        this.continuedPrompt = continued;
+    }-*/;
 }

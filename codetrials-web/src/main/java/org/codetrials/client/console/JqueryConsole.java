@@ -19,4 +19,9 @@ public class JqueryConsole implements Console {
     public void reset() {
         controller.reset();
     }
+
+    @Override
+    public void setPromptContinued(boolean continued) {
+        controller.setPromptContinued(continued);
+    }
 }

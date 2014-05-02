@@ -2,8 +2,8 @@ package org.codetrials.bundle.helpers;
 
 import org.codetrials.bundle.BundleContainer;
 import org.codetrials.bundle.Task;
+import org.codetrials.bundle.engines.BundleEngine;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,6 +15,10 @@ public abstract class SimpleBundleContainer extends BundleContainer {
 
     private final List<Task> tasks = createTasks();
     private int currentStep = 0;
+
+    protected SimpleBundleContainer(BundleEngine engine) {
+        super(engine);
+    }
 
     abstract protected List<Task> createTasks();
 

@@ -6,4 +6,5 @@ package org.codetrials.client.console;
 public interface Console {
     void setPromptText(String text);
     void reset();
+    void setPromptContinued(boolean continued);
 }
