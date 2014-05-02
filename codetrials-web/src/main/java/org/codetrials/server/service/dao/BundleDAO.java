@@ -1,6 +1,6 @@
 package org.codetrials.server.service.dao;
 
-import org.codetrials.server.service.entities.BundleDescription;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -11,6 +11,6 @@ public interface BundleDAO {
 
     public List<BundleDescription> getAllBundlesDescriptions();
 
-    public int addBundle(BundleDescription bd, String pathToJar);
+    public int addBundle(String title, MultipartFile bundle);
 
 }
