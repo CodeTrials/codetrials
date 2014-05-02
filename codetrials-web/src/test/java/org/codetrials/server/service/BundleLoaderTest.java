@@ -48,7 +48,6 @@ public class BundleLoaderTest {
 
         output = bundle.processCommand("2 +4");
         Assert.assertEquals("6\n", output.getResult().getExecutionOutput());
-        int x = 239;
     }
 
 }
