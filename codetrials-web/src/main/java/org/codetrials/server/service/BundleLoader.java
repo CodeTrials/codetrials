@@ -49,7 +49,9 @@ public class BundleLoader {
                 String className = attributes.getValue(BUNDLE_CONTAINER_MANIFEST_ATTRIBUTE);
                 ClassLoader classLoader = new URLClassLoader(new URL[]{new URL("jar", "", pathToJar + "!/")});
                 bundleClass = (Class<BundleContainer>) classLoader.loadClass(className);
-                cachedClasses.put(id, bundleClass);
+                if (id != -1) {
+                    cachedClasses.put(id, bundleClass);
+                }
             } catch (MalformedURLException e) {
                 throw new InvalidBundleException("Bad url was not found!", e);
             } catch (ClassNotFoundException e) {
@@ -73,7 +75,14 @@ public class BundleLoader {
     public boolean validateContainer(MultipartFile bundle) {
         try {
             File tmp = saveAsTmp(bundle.getBytes());
-            BundleContainer bc =  createBundleContainer(tmp.toURI().toURL(), -1);
+            URL pathToJar = tmp.toURI().toURL();
+            JarFile jar = new JarFile(pathToJar.getFile());
+            Manifest manifest = jar.getManifest();
+            Attributes attributes = manifest.getMainAttributes();
+            String className = attributes.getValue(BUNDLE_CONTAINER_MANIFEST_ATTRIBUTE);
+            ClassLoader classLoader = new URLClassLoader(new URL[]{new URL("jar", "", pathToJar + "!/")});
+            Class<BundleContainer> bundleClass = (Class<BundleContainer>) classLoader.loadClass(className);
+
             tmp.delete();
             return true;
         } catch (Exception e) {
