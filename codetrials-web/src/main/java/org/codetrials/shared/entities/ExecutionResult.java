@@ -1,7 +1,6 @@
 package org.codetrials.shared.entities;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
-import org.codetrials.bundle.entities.TaskDescription;
 
 /**
  * @author Polyarnyi Nikolay
