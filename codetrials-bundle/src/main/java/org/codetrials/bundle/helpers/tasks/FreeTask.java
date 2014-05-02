@@ -25,8 +25,13 @@ public class FreeTask extends Task {
     }
 
     @Override
+    public boolean isCommandExecutable(String command) {
+        return !finishCommand.equals(command.trim());
+    }
+
+    @Override
     public TaskReaction onCommandExecuted(String command, ExecutionResult e) {
-        if (finishCommand.equals(command)) {
+        if (finishCommand.equals(command.trim())) {
             this.completed = true;
             return new TaskReaction();
         }
