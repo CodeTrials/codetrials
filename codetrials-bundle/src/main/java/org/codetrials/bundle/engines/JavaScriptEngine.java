@@ -46,9 +46,9 @@ public class JavaScriptEngine implements BundleEngine {
         if (balance == 0) {
             try {
                 System.setOut(commandPrintStream);
-                engine.eval(buffer.toString()); // returned value is ignored
+                Object res = engine.eval(buffer.toString());
                 System.setOut(stdout);
-                String ret = commandOutput.toString();
+                String ret = commandOutput.toString() + (res == null ? "" : res.toString() + "\n");
                 reset();
                 return new ExecutionResult(ret, null);
             } catch (ScriptException ex) {

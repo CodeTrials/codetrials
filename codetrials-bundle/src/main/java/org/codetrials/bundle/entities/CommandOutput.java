@@ -24,10 +24,4 @@ public class CommandOutput {
         return result;
     }
 
-    @Override
-    public String toString() {
-        return result.getExecutionOutput() + "\n" +
-                "Hint: " + reaction.getHint() + "\n" +
-                "Exception: " + result.getException().getMessage();
-    }
 }
