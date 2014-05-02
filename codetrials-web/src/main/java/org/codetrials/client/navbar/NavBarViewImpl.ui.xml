@@ -1,0 +1,11 @@
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+             xmlns:g="urn:import:com.google.gwt.user.client.ui">
+    <g:HTMLPanel tag="nav" stylePrimaryName="navbar" addStyleDependentNames="default static-top">
+        <div class="container">
+            <div class="navbar-header">
+                <g:Anchor href="#" styleName="navbar-brand" text="CodeTrials" ui:field="logo"/>
+            </div>
+            <g:Button addStyleNames="btn btn-success navbar-btn navbar-right" text="Add trial" ui:field="addTrial"/>
+        </div>
+    </g:HTMLPanel>
+</ui:UiBinder>

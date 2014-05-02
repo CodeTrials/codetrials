@@ -1,7 +1,7 @@
 package org.codetrials.client.core.logging;
 
 import com.google.gwt.core.client.GWT;
-import org.codetrials.client.core.natives.JsArray;
+import org.codetrials.client.core.natives.JsList;
 
 /**
  * @author Nikita Zyulyaev
@@ -27,19 +27,19 @@ public final class Log {
         logger.error(message);
     }
 
-    public static void log(JsArray<?> messages) {
+    public static void log(JsList<?> messages) {
         logger.log(messages);
     }
 
-    public static void info(JsArray<?> messages) {
+    public static void info(JsList<?> messages) {
         logger.info(messages);
     }
 
-    public static void warn(JsArray<?> messages) {
+    public static void warn(JsList<?> messages) {
         logger.warn(messages);
     }
 
-    public static void error(JsArray<?> messages) {
+    public static void error(JsList<?> messages) {
         logger.error(messages);
     }
 }

@@ -30,7 +30,7 @@ class JsMapImpl<V> extends JavaScriptObject implements JsMap<V> {
     }-*/;
 
     @Override
-    public final native JsArray<String> keys() /*-{
+    public final native JsList<String> keys() /*-{
         return Object.keys(this);
     }-*/;
 }

@@ -12,5 +12,5 @@ public interface JsMap<V> {
     void remove(String key);
     boolean containsKey(String key);
 
-    JsArray<String> keys();
+    JsList<String> keys();
 }
