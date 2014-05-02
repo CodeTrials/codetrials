@@ -18,7 +18,7 @@ public class JavaScriptEngine implements BundleEngine {
     private int balance;
 
     private ByteArrayOutputStream commandOutput;
-    private PrintStream commandPrintStream = new PrintStream(commandOutput);
+    private PrintStream commandPrintStream;
 
     private static final PrintStream stdout = System.out;
 
