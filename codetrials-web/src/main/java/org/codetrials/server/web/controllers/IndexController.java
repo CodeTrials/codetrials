@@ -29,8 +29,7 @@ public class IndexController {
     }
 
     @RequestMapping(value = LayoutConstants.BUNDLE_UPLOAD_FORM_URL, method = RequestMethod.POST)
-    @ResponseBody
-    public String upload(@RequestParam(LayoutConstants.BUNDLE_UPLOAD_FORM_TITLE) String title,
+    public @ResponseBody String upload(@RequestParam(LayoutConstants.BUNDLE_UPLOAD_FORM_TITLE) String title,
                          @RequestParam(LayoutConstants.BUNDLE_UPLOAD_FORM_BUNDLE) MultipartFile file) {
         try {
             int id = bundleDAOService.addBundle(title, file.getBytes());
