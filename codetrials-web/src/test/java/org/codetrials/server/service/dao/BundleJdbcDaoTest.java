@@ -20,7 +20,7 @@ public class BundleJdbcDaoTest {
         return dataSource;
     }
 
-    @Test
+//    @Test
     public void basicTest() {
         final String bundleName = "js bundle";
         DataSource ds = getDriverManagerDataSource();
