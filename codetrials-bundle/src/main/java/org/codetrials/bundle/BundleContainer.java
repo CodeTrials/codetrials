@@ -5,7 +5,7 @@ import org.codetrials.bundle.entities.CommandOutput;
 import org.codetrials.bundle.entities.ExecutionResult;
 import org.codetrials.bundle.entities.TaskDescription;
 import org.codetrials.bundle.entities.TaskReaction;
-import org.codetrials.bundle.helpers.tasks.ResourceLoader;
+import org.codetrials.bundle.helpers.ResourceLoader;
 
 /**
  * @author Polyarnyi Nikolay
