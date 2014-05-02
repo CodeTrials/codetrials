@@ -57,7 +57,7 @@ public class MultipleRegexpTask extends Task {
             this.completed = true;
             return new TaskReaction();
         }
-        if (e.getException() != null) {
+        if (e != null && e.getException() != null) {
             return new TaskReaction(hint);
         }
         for (String regexp : regexps) {

@@ -44,7 +44,7 @@ public abstract class BundleContainer {
             if (currentTask.isCompleted()) {
                 moveToNextTask();
             }
-            return new CommandOutput(reaction, new ExecutionResult(null, null));
+            return new CommandOutput(reaction, new ExecutionResult("", null));
         }
     }
 
