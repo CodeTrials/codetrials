@@ -9,6 +9,10 @@ class JsTrial extends JavaScriptObject {
     protected JsTrial() {
     }
 
+    public final native int getId() /*-{
+        return this.id;
+    }-*/;
+
     public final native String getTitle() /*-{
         return this.title;
     }-*/;

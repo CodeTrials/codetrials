@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * @author Nikita Zyulyaev
@@ -18,10 +19,13 @@ public abstract class AbstractRemoteService {
     @Autowired
     private ServletContext context;
 
+    protected ThreadLocal<HttpSession> session;
+
     @RequestMapping(method = RequestMethod.POST)
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String pl = RPCServletUtils.readContentAsGwtRpc(request);
         RPCRequest rpc = RPC.decodeRequest(pl, getClass());
+        session.set(request.getSession());
         String rpcResponse = RPC.invokeAndEncodeResponse(
                 this,
                 rpc.getMethod(),

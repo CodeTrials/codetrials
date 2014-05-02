@@ -18,7 +18,7 @@ public class TrialsManager {
         getTrialsFromWindow().forEach(new JsList.Applier<JsTrial>() {
             @Override
             public void apply(JsTrial element, int index, JsList<? extends JsTrial> list) {
-                trials.add(new Trial(element.getTitle(), element.getDescription()));
+                trials.add(new Trial(element.getId(), element.getTitle(), element.getDescription()));
             }
         });
     }

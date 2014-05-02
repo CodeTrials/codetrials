@@ -3,25 +3,19 @@ package org.codetrials.shared.entities;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /**
- * @author Nikita Zyulyaev
+ * @author Polyarnyi Nikolay
  */
-public class Trial implements IsSerializable {
+public class Task implements IsSerializable {
 
-    private int id;
     private String title;
     private String description;
 
-    private Trial() {
+    private Task() {
     }
 
-    public Trial(int id, String title, String description) {
-        this.id = id;
-        this.title = title;
+    public Task(String description, String title) {
         this.description = description;
-    }
-
-    public int getId() {
-        return id;
+        this.title = title;
     }
 
     public String getTitle() {
