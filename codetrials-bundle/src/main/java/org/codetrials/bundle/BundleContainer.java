@@ -48,6 +48,8 @@ public abstract class BundleContainer {
         }
     }
 
+    public abstract void initTasks();
+
     public abstract String getBundleName();
 
     public abstract String getBundleDescription();

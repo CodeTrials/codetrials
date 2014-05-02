@@ -20,7 +20,8 @@ public abstract class SimpleBundleContainer extends BundleContainer {
         super(engine);
     }
 
-    protected void initTasks() {
+    @Override
+    public void initTasks() {
         tasks = createTasks();
     }
 
