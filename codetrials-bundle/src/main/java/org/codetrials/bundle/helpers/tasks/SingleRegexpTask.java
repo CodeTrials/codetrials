@@ -31,7 +31,7 @@ public class SingleRegexpTask extends Task {
 
     @Override
     public TaskReaction onCommandExecuted(String command, ExecutionResult e) {
-        if (e.getException() == null && command.matches(regexp)) {
+        if ((e == null || e.getException() == null) && command.matches(regexp)) {
             this.completed = true;
         }
         return new TaskReaction();

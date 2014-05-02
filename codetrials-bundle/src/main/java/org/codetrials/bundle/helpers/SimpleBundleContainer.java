@@ -13,11 +13,16 @@ import java.util.List;
  */
 public abstract class SimpleBundleContainer extends BundleContainer {
 
-    private final List<Task> tasks = createTasks();
+    private List<Task> tasks;
     private int currentStep = 0;
 
     protected SimpleBundleContainer(BundleEngine engine) {
         super(engine);
+    }
+
+    @Override
+    public void initTasks() {
+        tasks = createTasks();
     }
 
     abstract protected List<Task> createTasks();

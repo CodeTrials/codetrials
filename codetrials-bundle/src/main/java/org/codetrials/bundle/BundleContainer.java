@@ -5,6 +5,7 @@ import org.codetrials.bundle.entities.CommandOutput;
 import org.codetrials.bundle.entities.ExecutionResult;
 import org.codetrials.bundle.entities.TaskDescription;
 import org.codetrials.bundle.entities.TaskReaction;
+import org.codetrials.bundle.helpers.tasks.ResourceLoader;
 
 /**
  * @author Polyarnyi Nikolay
@@ -15,6 +16,12 @@ public abstract class BundleContainer {
 
     protected BundleContainer(BundleEngine engine) {
         this.engine = engine;
+    }
+
+    protected ResourceLoader resourceLoader;
+
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
     }
 
     public CommandOutput processCommand(String command) {
@@ -40,6 +47,8 @@ public abstract class BundleContainer {
             return new CommandOutput(reaction, null);
         }
     }
+
+    public abstract void initTasks();
 
     public abstract String getBundleName();
 

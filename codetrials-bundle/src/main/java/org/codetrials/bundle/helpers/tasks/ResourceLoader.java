@@ -15,22 +15,18 @@ import java.nio.charset.Charset;
  */
 public class ResourceLoader {
 
+    private final URL rootToTests;
     private final String prefix;
     private final String suffix;
 
-    /**
-     * For example you want to load files from typical java resources folder: "task_1.txt", "task_2.txt", "task_3.txt".
-     *
-     * @param prefix for example: "task_"
-     * @param suffix for example: ".txt"
-     */
-    public ResourceLoader(String prefix, String suffix) {
+    public ResourceLoader(URL rootToTests, String prefix, String suffix) {
+        this.rootToTests = rootToTests;
         this.prefix = prefix;
         this.suffix = suffix;
     }
 
     public TaskDescription loadTaskDescription(int index) throws IOException {
-        URL url = Resources.getResource(prefix + index + suffix);
+        URL url = new URL(rootToTests, prefix + index + suffix);
         String text = Resources.toString(url, getEncoding());
         int firstLineEnd = text.indexOf('\n');
         return new TaskDescription(text.substring(0, firstLineEnd), text.substring(firstLineEnd + 1));
