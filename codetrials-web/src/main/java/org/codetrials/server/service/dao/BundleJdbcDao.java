@@ -1,5 +1,6 @@
 package org.codetrials.server.service.dao;
 
+import org.codetrials.shared.entities.BundleDescription;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -31,7 +32,8 @@ public class BundleJdbcDao implements BundleDAO {
         final String query = "CREATE TABLE bundleinfo " +
                 "(id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, " +
                 "title VARCHAR(50), " +
-                "path VARCHAR(50))";
+                "path VARCHAR(50)," +
+                "description VARCHAR(100))";
         JdbcTemplate template = new JdbcTemplate(dataSource);
 
         try {
@@ -57,7 +59,7 @@ public class BundleJdbcDao implements BundleDAO {
     @Override
     public int addBundle(final String title, MultipartFile bundle) {
         // Some multipart file preprocessing
-        final String query = "insert into bundleinfo (title, path) values (?, ?)";
+        final String query = "insert into bundleinfo (title, path, description) values (?, ?, ?)";
         KeyHolder holder = new GeneratedKeyHolder();
         new JdbcTemplate(dataSource).update(new PreparedStatementCreator() {
             @Override
@@ -65,7 +67,8 @@ public class BundleJdbcDao implements BundleDAO {
                     throws SQLException {
                 PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
                 ps.setString(1, title);
-                ps.setString(2, "temporary");
+                ps.setString(2, "path_t");
+                ps.setString(3, "descr_t");
                 return ps;
             }
         }, holder);

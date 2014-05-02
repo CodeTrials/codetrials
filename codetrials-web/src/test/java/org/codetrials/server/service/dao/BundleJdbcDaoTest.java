@@ -1,6 +1,8 @@
 package org.codetrials.server.service.dao;
 
 import static org.junit.Assert.*;
+
+import org.codetrials.shared.entities.BundleDescription;
 import org.junit.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 

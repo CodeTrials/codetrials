@@ -1,7 +1,7 @@
 package org.codetrials.server.service;
 
 import org.codetrials.bundle.BundleContainer;
-import org.codetrials.bundle.helpers.tasks.ResourceLoader;
+import org.codetrials.bundle.helpers.ResourceLoader;
 import org.codetrials.server.exceptions.MissingBundleAttributeException;
 
 import java.io.IOException;
@@ -24,8 +24,9 @@ public class BundleLoader {
     private static final String BUNDLE_JAR_NAME = "bundle.jar";
 
     private static final String BUNDLE_TASK_FOLDER = "tasks";
-    private static final String BUNDLE_TASK_PREFIX = "task_";
-    private static final String BUNDLE_TASK_SUFFIX = ".txt";
+    private static final String BUNDLE_TASK_FILENAME = "slides.txt";
+//    private static final String BUNDLE_TASK_PREFIX = "task_";
+//    private static final String BUNDLE_TASK_SUFFIX = ".txt";
 
     Map<Integer, Class<BundleContainer>> cachedClasses;
 
@@ -46,7 +47,7 @@ public class BundleLoader {
             cachedClasses.put(id, bundleClass);
         }
         BundleContainer bundleContainer = bundleClass.newInstance();
-        bundleContainer.setResourceLoader(new ResourceLoader(new URL(bundlesRoot, id + "/" + BUNDLE_TASK_FOLDER + "/"), BUNDLE_TASK_PREFIX, BUNDLE_TASK_SUFFIX));
+        bundleContainer.setResourceLoader(new ResourceLoader(new URL(bundlesRoot, id + "/" + BUNDLE_TASK_FOLDER + "/"), BUNDLE_TASK_FILENAME));
         bundleContainer.initTasks();
         return bundleContainer;
     }
