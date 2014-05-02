@@ -13,5 +13,4 @@ public class BundleDescriptionMapper implements RowMapper {
     public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new BundleDescription(rs.getInt("id"), rs.getString("title"), rs.getString("path"));
     }
-
 }

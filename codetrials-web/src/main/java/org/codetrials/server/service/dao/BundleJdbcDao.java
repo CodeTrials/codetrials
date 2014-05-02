@@ -8,6 +8,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -21,13 +22,16 @@ import java.util.List;
 @Repository
 public class BundleJdbcDao implements BundleDAO {
 
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+    public BundleJdbcDao(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
+
+    private final DataSource dataSource;
 
     @Override
     public List<BundleDescription> getAllBundlesDescriptions() {
         final String query = "SELECT * FROM bundleinfo";
-        return jdbcTemplate.query(query, new BundleDescriptionMapper());
+        return new JdbcTemplate(dataSource).query(query, new BundleDescriptionMapper());
     }
 
     @Override
@@ -35,7 +39,7 @@ public class BundleJdbcDao implements BundleDAO {
         // Some multipart file preprocessing
         final String query = "insert into bundleinfo (title, path) values (?, ?)";
         KeyHolder holder = new GeneratedKeyHolder();
-        jdbcTemplate.update(new PreparedStatementCreator() {
+        new JdbcTemplate(dataSource).update(new PreparedStatementCreator() {
             @Override
             public PreparedStatement createPreparedStatement(Connection connection)
                     throws SQLException {
