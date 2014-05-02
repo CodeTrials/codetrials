@@ -35,7 +35,7 @@ public abstract class BundleContainer {
                 if (currentTask.isCompleted()) {
                     moveToNextTask();
                 }
-                return new CommandOutput(reaction, executionResult, reaction.isCommandFinished());
+                return new CommandOutput(reaction, executionResult);
             } else {
                 return null;
             }
@@ -44,7 +44,7 @@ public abstract class BundleContainer {
             if (currentTask.isCompleted()) {
                 moveToNextTask();
             }
-            return new CommandOutput(reaction, null, reaction.isCommandFinished());
+            return new CommandOutput(reaction, null);
         }
     }
 

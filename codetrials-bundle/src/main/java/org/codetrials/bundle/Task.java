@@ -21,6 +21,10 @@ public abstract class Task {
 
     public abstract boolean isCompleted();
 
+    public int getID() {
+        return taskDescription.getID();
+    }
+
     /**
      * Can be overriden to interpret some user input as commands to task - NOT as language command. For example "next"
      * to move to next step. This possibility can be used to improve interactivity with current task.

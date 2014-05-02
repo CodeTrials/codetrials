@@ -48,10 +48,11 @@ public class ResourceLoader {
         String text = Resources.toString(url, getEncoding());
         List<String> tasks = divideByEquals(text);
         descriptions = new ArrayList<>();
-        for (String task : tasks) {
+        for (int i = 0; i < tasks.size(); ++i) {
+            String task = tasks.get(i);
             int firstLineEnd = task.indexOf('\n');
             descriptions.add(new TaskDescription(
-                    task.substring(0, firstLineEnd), task.substring(firstLineEnd + 1)));
+                    task.substring(0, firstLineEnd), task.substring(firstLineEnd + 1), i));
         }
     }
 

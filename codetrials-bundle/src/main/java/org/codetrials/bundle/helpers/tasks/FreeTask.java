@@ -28,8 +28,8 @@ public class FreeTask extends Task {
     public TaskReaction onCommandExecuted(String command, ExecutionResult e) {
         if (finishCommand.equals(command)) {
             this.completed = true;
-            return new TaskReaction(true);
+            return new TaskReaction();
         }
-        return new TaskReaction(false);
+        return new TaskReaction();
     }
 }

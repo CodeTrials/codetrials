@@ -8,22 +8,16 @@ package org.codetrials.bundle.entities;
 public class TaskReaction {
 
     private final String hint;
-    private final boolean isCommandFinished;
 
-    public TaskReaction(boolean isCommandFinished) {
-        this(null, isCommandFinished);
+    public TaskReaction() {
+        this(null);
     }
 
-    public TaskReaction(String hint, boolean isCommandFinished) {
+    public TaskReaction(String hint) {
         this.hint = hint;
-        this.isCommandFinished = isCommandFinished;
     }
 
     public String getHint() {
         return hint;
-    }
-
-    public boolean isCommandFinished() {
-        return isCommandFinished;
     }
 }
