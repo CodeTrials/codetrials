@@ -17,10 +17,10 @@ public class AppConfig {
     @Bean
     DataSource getDriverManagerDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost/codeTrialsDB");
-        dataSource.setUsername("codeTrials");
-        dataSource.setPassword("12345");
+        dataSource.setDriverClassName("org.apache.derby.jdbc.EmbeddedDriver");
+        dataSource.setUrl("jdbc:derby:testDerbyDB;create=true");
+        dataSource.setUsername("");
+        dataSource.setPassword("");
         return dataSource;
     }
 }
