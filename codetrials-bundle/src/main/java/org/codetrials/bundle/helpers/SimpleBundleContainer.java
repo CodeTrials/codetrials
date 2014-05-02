@@ -2,6 +2,7 @@ package org.codetrials.bundle.helpers;
 
 import org.codetrials.bundle.BundleContainer;
 import org.codetrials.bundle.Task;
+import org.codetrials.bundle.engines.BundleEngine;
 
 import java.util.List;
 
