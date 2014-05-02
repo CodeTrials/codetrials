@@ -8,5 +8,7 @@
     <source path="client"/>
     <source path="shared"/>
 
+    <set-property name="user.agent" value="safari"/>
+
     <entry-point class="org.codetrials.client.CodeTrialsEntryPoint"/>
 </module>
