@@ -4,7 +4,6 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.dom.client.DivElement;
 import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.HeadingElement;
-import com.google.gwt.dom.client.ParagraphElement;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.DOM;
@@ -24,7 +23,7 @@ class TrialViewImpl extends BaseView<TrialPresenter> implements TrialView {
     @UiField
     HeadingElement title;
     @UiField
-    ParagraphElement description;
+    Element description;
     @UiField
     DivElement consoleContainer;
 

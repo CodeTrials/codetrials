@@ -7,4 +7,5 @@ public interface Console {
     void setPromptText(String text);
     void reset();
     void setPromptContinued(boolean continued);
+    boolean isPromptContinued();
 }

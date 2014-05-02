@@ -11,6 +11,7 @@ import org.codetrials.client.core.events.EventBus;
 import org.codetrials.client.core.events.Handler;
 import org.codetrials.client.core.logging.Log;
 import org.codetrials.client.core.mvp.BasePresenter;
+import org.codetrials.client.core.natives.JsList;
 import org.codetrials.client.core.natives.NativeUtils;
 import org.codetrials.client.markdown.Markdown;
 import org.codetrials.shared.LayoutConstants;
@@ -55,12 +56,16 @@ class TrialPresenterImpl extends BasePresenter<TrialView> implements TrialPresen
                 public void onSuccess(ExecutionResult result) {
                     if (result.isCommandFinished()) {
                         console.setPromptContinued(false);
-                        reporter.report(NativeUtils.listOf(
-                                ConsoleMessage.of(result.getOutput(), LayoutConstants.CONSOLE_OUTPUT_CLASS),
-                                ConsoleMessage.of(result.getError(), LayoutConstants.CONSOLE_ERROR_CLASS)
-                        ));
+                        JsList<ConsoleMessage> messages = NativeUtils.listOf(ConsoleMessage.of(result.getOutput(), LayoutConstants.CONSOLE_OUTPUT_CLASS));
+                        if (result.getError() != null) {
+                            messages.push(ConsoleMessage.of(result.getError(), LayoutConstants.CONSOLE_ERROR_CLASS));
+                        }
+                        reporter.report(messages);
                     } else {
-                        console.setPromptContinued(true);
+                        if (!console.isPromptContinued()) {
+                            console.setPromptContinued(true);
+                            reporter.report(null);
+                        }
                     }
                 }
             });

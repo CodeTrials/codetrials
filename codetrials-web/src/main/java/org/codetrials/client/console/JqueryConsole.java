@@ -24,4 +24,9 @@ public class JqueryConsole implements Console {
     public void setPromptContinued(boolean continued) {
         controller.setPromptContinued(continued);
     }
+
+    @Override
+    public boolean isPromptContinued() {
+        return controller.isPromptContinued();
+    }
 }

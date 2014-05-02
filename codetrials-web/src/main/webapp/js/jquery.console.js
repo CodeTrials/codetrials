@@ -488,18 +488,9 @@
             if (typeof config.commandHandle == 'function') {
                 disableInput();
                 addToHistory(promptText);
-                var text = promptText;
-                if (extern.continuedPrompt) {
-                    if (continuedText)
-                        continuedText += '\n' + promptText;
-                    else continuedText = promptText;
-                } else continuedText = undefined;
-                if (continuedText) text = continuedText;
-                var ret = config.commandHandle(text,function(msgs){
+                var ret = config.commandHandle(promptText, function(msgs){
                     commandResult(msgs);
                 });
-                if (extern.continuedPrompt && !continuedText)
-                    continuedText = promptText;
                 if (typeof ret == 'boolean') {
                     if (ret) {
                         // Command succeeded without a result.
