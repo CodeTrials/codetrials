@@ -4,9 +4,9 @@
             <div class="jumbotron">
                 <div class="progress">
                     <div class="progress" ui:field="progress"> </div>
-                    <h3 ui:field="title"> </h3>
-                    <p ui:field="description"> </p>
                 </div>
+                <h3 ui:field="title"> </h3>
+                <div ui:field="description"> </div>
             </div>
         </div>
         <div class="col-md-8" ui:field="consoleContainer">

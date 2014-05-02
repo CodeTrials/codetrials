@@ -20,4 +20,8 @@ public class JqueryConsoleController extends JavaScriptObject {
     public final native void setPromptContinued(boolean continued) /*-{
         this.continuedPrompt = continued;
     }-*/;
+
+    public final native boolean isPromptContinued() /*-{
+        return this.continuedPrompt;
+    }-*/;
 }
