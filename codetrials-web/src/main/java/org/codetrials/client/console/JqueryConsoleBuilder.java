@@ -35,6 +35,12 @@ public class JqueryConsoleBuilder implements ConsoleBuilder {
     }
 
     @Override
+    public ConsoleBuilder setContinuedPromptLabel(String continuedPromptLabel) {
+        options.put("continuedPromptLabel", continuedPromptLabel);
+        return this;
+    }
+
+    @Override
     public ConsoleBuilder setWelcomeMessage(String welcomeMessage) {
         options.put("welcomeMessage", welcomeMessage);
         return this;

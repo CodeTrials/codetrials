@@ -5,12 +5,12 @@ import org.codetrials.server.service.entities.BundleDescription;
 import java.util.List;
 
 /**
- * @author Polyarnyi Nikolay
+ * @author qwwdfsad
  */
 public interface BundleDAO {
 
-    public List<Integer> getAllBundlesIds();
+    public List<BundleDescription> getAllBundlesDescriptions();
 
-    public int addBundle();
+    public int addBundle(BundleDescription bd, String pathToJar);
 
 }

@@ -24,6 +24,6 @@ class NavBarPresenterImpl extends BasePresenter<NavBarView> implements NavBarPre
 
     @Override
     public void onCreateTrial() {
-        bus.fire(ContentManager.SHOW_CREATE, null);
+        bus.fire(ContentManager.SHOW_FORM, null);
     }
 }
