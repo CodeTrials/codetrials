@@ -12,12 +12,14 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.DataSource;
 import java.io.*;
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Enumeration;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 
 /**
  * @author qwwdfsad
@@ -93,9 +95,8 @@ public class BundleJdbcDao implements BundleDAO {
         try {
             String path = BUNDLE_ROOT + "/" + id;
             File f = new File(path);
-            f.getParentFile().mkdirs();
-            f.createNewFile();
-            String jarLocation = path;
+            f.mkdirs();
+            String jarLocation = path + "/" + BundleLoader.BUNDLE_JAR_NAME;
             save(fullFile, new File(jarLocation).getAbsolutePath());
             extractSlides(jarLocation);
         } catch (Exception e) {
@@ -107,6 +108,7 @@ public class BundleJdbcDao implements BundleDAO {
 
     private File save(byte[] bytes, String path) throws IOException {
         File f = new File(path);
+        f.getParentFile().mkdirs();
         f.createNewFile();
         try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(f));) {
             bos.write(bytes);
@@ -116,9 +118,16 @@ public class BundleJdbcDao implements BundleDAO {
     }
 
     private void extractSlides(String pathToJar) throws Exception {
-        URL url = new URL("jar:file:/" + pathToJar + "/" + BundleLoader.BUNDLE_JAR_NAME + "!/" + BundleLoader.BUNDLE_TASK_FILENAME);
-        InputStream is = url.openStream();
-        byte[] bytes = IOUtils.toByteArray(is);
-        save(bytes, pathToJar + "/" + BundleLoader.BUNDLE_TASK_FILENAME);
+        ZipFile file = new ZipFile(pathToJar);
+        Enumeration<? extends ZipEntry> entries = file.entries();
+        while (entries.hasMoreElements()) {
+            ZipEntry entry = entries.nextElement();
+            if (entry.getName().endsWith(BundleLoader.BUNDLE_TASK_FILENAME)) {
+                InputStream is = file.getInputStream(entry);
+                byte[] bytes = IOUtils.toByteArray(is);
+                save(bytes, pathToJar + "/" + BundleLoader.BUNDLE_TASK_FILENAME);
+                return;
+            }
+        }
     }
 }
