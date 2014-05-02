@@ -47,7 +47,13 @@ public class GWTRPCServiceController extends AbstractRemoteService implements GW
     @Override
     public ExecutionResult execute(int bundleId, String command) {
         BundleContainer bundle = getOrInitBundleContainer(bundleId);
+        TaskDescription oldTask = bundle.getTaskDescription();
         CommandOutput output = bundle.processCommand(command);
+        TaskDescription newTask = bundle.getTaskDescription();
+        Task nextTask = null;
+        if (newTask != oldTask) {
+            nextTask = new Task(newTask.getDescription(), newTask.getTitle(), newTask.getID());
+        }
         return output != null ?
                 new ExecutionResult(
                         output.getReaction().getHint(),
@@ -55,8 +61,8 @@ public class GWTRPCServiceController extends AbstractRemoteService implements GW
                         output.getResult().getException() == null ?
                                 null :
                                 output.getResult().getException().getMessage(),
-                        true) :
-                new ExecutionResult(null, null, null, false);
+                        true, nextTask) :
+                new ExecutionResult(null, null, null, false, nextTask);
     }
 
     BundleContainer getOrInitBundleContainer(int bundleId) {
