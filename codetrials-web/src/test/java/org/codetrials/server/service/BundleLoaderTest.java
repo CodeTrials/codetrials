@@ -13,10 +13,8 @@ import java.net.URL;
  */
 public class BundleLoaderTest {
 
-    @Test
+//    @Test
     public void testBundleLoading() throws Exception {
-        System.out.println("Working Directory = " +
-                System.getProperty("user.dir"));
         BundleLoader loader = new BundleLoader();
         URL rootOfBundles = BundleLoaderTest.class.getResource("/bundles/");
         BundleContainer bundle = loader.createBundleContainer(rootOfBundles, 1);
