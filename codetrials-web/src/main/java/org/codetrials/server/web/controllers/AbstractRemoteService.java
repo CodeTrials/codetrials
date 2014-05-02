@@ -19,7 +19,7 @@ public abstract class AbstractRemoteService {
     @Autowired
     private ServletContext context;
 
-    protected ThreadLocal<HttpSession> session;
+    protected ThreadLocal<HttpSession> session = new ThreadLocal<>();
 
     @RequestMapping(method = RequestMethod.POST)
     public void handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {

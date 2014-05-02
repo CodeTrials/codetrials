@@ -125,7 +125,7 @@ public class BundleJdbcDao implements BundleDAO {
             if (entry.getName().endsWith(BundleLoader.BUNDLE_TASK_FILENAME)) {
                 InputStream is = file.getInputStream(entry);
                 byte[] bytes = IOUtils.toByteArray(is);
-                save(bytes, pathToJar + "/" + BundleLoader.BUNDLE_TASK_FILENAME);
+                save(bytes, new File(pathToJar).getParent() + "/" + BundleLoader.BUNDLE_TASK_FILENAME);
                 return;
             }
         }
