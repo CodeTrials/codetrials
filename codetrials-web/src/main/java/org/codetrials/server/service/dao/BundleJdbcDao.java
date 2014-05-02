@@ -26,7 +26,7 @@ import java.util.zip.ZipFile;
  */
 public class BundleJdbcDao implements BundleDAO {
 
-    private static final String BUNDLE_ROOT = "resources/bundles";
+    public static final String BUNDLE_ROOT = "resources/bundles/";
 
     private final DataSource dataSource;
     private final BundleLoader validator;
@@ -93,7 +93,7 @@ public class BundleJdbcDao implements BundleDAO {
         }, holder);
         int id = holder.getKey().intValue();
         try {
-            String path = BUNDLE_ROOT + "/" + id;
+            String path = BUNDLE_ROOT + id;
             File f = new File(path);
             f.mkdirs();
             String jarLocation = path + "/" + BundleLoader.BUNDLE_JAR_NAME;

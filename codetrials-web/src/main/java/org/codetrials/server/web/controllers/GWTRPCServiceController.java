@@ -6,6 +6,7 @@ import org.codetrials.bundle.entities.TaskDescription;
 import org.codetrials.server.exceptions.InvalidBundleException;
 import org.codetrials.server.service.BundleLoader;
 import org.codetrials.server.service.TrialService;
+import org.codetrials.server.service.dao.BundleJdbcDao;
 import org.codetrials.shared.entities.ExecutionResult;
 import org.codetrials.shared.entities.Task;
 import org.codetrials.shared.entities.Trial;
@@ -24,8 +25,6 @@ import java.util.List;
 @Service
 @RequestMapping("codetrials/rpc")
 public class GWTRPCServiceController extends AbstractRemoteService implements GWTRPCService {
-
-    private static final String BUNDLES_ROOT = "/bundles/";
 
     @Autowired
     TrialService trialService;
@@ -64,7 +63,7 @@ public class GWTRPCServiceController extends AbstractRemoteService implements GW
         BundleContainer bundle = (BundleContainer) session.get().getAttribute(Integer.toString(bundleId));
         if (bundle == null) {
             try {
-                bundle = bundleLoader.createBundleContainer(new URL(BUNDLES_ROOT), bundleId);
+                bundle = bundleLoader.createBundleContainer(new URL("file:" + BundleJdbcDao.BUNDLE_ROOT), bundleId);
                 session.get().setAttribute(Integer.toString(bundleId), bundle);
             } catch (InvalidBundleException invalidBundleException) {
                 return null;

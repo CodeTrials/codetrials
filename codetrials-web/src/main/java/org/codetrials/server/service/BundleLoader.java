@@ -61,7 +61,7 @@ public class BundleLoader {
         }
         try {
             BundleContainer bundleContainer = bundleClass.newInstance();
-            bundleContainer.setResourceLoader(new ResourceLoader(new URL(bundlesRoot, id + "/" + BUNDLE_TASK_FOLDER + "/"), BUNDLE_TASK_FILENAME));
+            bundleContainer.setResourceLoader(new ResourceLoader(new URL(bundlesRoot, id + "/"), BUNDLE_TASK_FILENAME));
             bundleContainer.initTasks();
             return bundleContainer;
         } catch (InstantiationException | IllegalAccessException e) {
