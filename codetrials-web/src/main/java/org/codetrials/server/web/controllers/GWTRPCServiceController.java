@@ -42,7 +42,7 @@ public class GWTRPCServiceController extends AbstractRemoteService implements GW
     public Task getCurrentTask(int bundleId) {
         BundleContainer bundle = getOrInitBundleContainer(bundleId);
         TaskDescription taskDescription = bundle.getTaskDescription();
-        return new Task(taskDescription.getDescription(), taskDescription.getTitle());
+        return new Task(taskDescription.getDescription(), taskDescription.getTitle(), taskDescription.getID());
     }
 
     @Override

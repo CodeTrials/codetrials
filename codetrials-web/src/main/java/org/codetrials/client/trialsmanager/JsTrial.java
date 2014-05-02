@@ -20,4 +20,8 @@ class JsTrial extends JavaScriptObject {
     public final native String getDescription() /*-{
         return this.description;
     }-*/;
+
+    public final native int getTaskCount() /*-{
+        return this.taskCount;
+    }-*/;
 }

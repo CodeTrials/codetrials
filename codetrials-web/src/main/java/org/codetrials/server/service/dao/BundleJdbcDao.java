@@ -41,7 +41,8 @@ public class BundleJdbcDao implements BundleDAO {
                 "(id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, " +
                 "title VARCHAR(50), " +
                 "path VARCHAR(50)," +
-                "description VARCHAR(100))";
+                "description VARCHAR(100)," +
+                "taskCount INT)";
         JdbcTemplate template = new JdbcTemplate(dataSource);
 
         try {
@@ -74,7 +75,7 @@ public class BundleJdbcDao implements BundleDAO {
             return -1;
         }
 
-        final String query = "insert into bundleinfo (title, path, description) values (?, ?, ?)";
+        final String query = "insert into bundleinfo (title, path, description, taskCount) values (?, ?, ?, ?)";
         KeyHolder holder = new GeneratedKeyHolder();
         new JdbcTemplate(dataSource).update(new PreparedStatementCreator() {
             @Override
@@ -84,6 +85,7 @@ public class BundleJdbcDao implements BundleDAO {
                 ps.setString(1, title);
                 ps.setString(2, "path_t");
                 ps.setString(3, "descr_t");
+                ps.setInt(4, 10);  // temporary
                 return ps;
             }
         }, holder);

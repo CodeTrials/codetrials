@@ -8,6 +8,7 @@ public class BundleDescription {
     private final String title;
     private final String path;
     private final String description;
+    private final int taskCount;
 
     public int getId() {
         return id;
@@ -25,10 +26,15 @@ public class BundleDescription {
         return title;
     }
 
-    public BundleDescription(int id, String title, String path, String descr) {
+    public int getTaskCount() {
+        return taskCount;
+    }
+
+    public BundleDescription(int id, String title, String path, String descr, int taskCount) {
         this.id = id;
         this.title = title;
         this.path = path;
         this.description = descr;
+        this.taskCount = taskCount;
     }
 }
