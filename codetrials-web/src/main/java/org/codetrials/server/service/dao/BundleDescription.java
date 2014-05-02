@@ -6,7 +6,7 @@ package org.codetrials.server.service.dao;
 public class BundleDescription {
     private final int id;
     private final String title;
-    private final String description;
+    private final String path;
 
     public int getId() {
         return id;
@@ -16,13 +16,9 @@ public class BundleDescription {
         return title;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public BundleDescription(int id, String title, String description) {
+    BundleDescription(int id, String title, String path) {
         this.id = id;
         this.title = title;
-        this.description = description;
+        this.path = path;
     }
 }
