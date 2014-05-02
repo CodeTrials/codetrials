@@ -9,7 +9,7 @@ import org.codetrials.client.core.mvp.View;
  */
 @ImplementedBy(TrialViewImpl.class)
 public interface TrialView extends View<TrialPresenter> {
-    void setProgress(int done, int tasks);
+    void setProgress(int current, int tasks);
     void setTaskLegend(String title, String description);
     ConsoleBuilder initConsole();
 }
