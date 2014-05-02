@@ -47,3 +47,7 @@ div.console div.jquery-console-message-hint {
 div.console span.jquery-console-prompt-label {
     font-weight: bold;
 }
+
+code {
+    white-space: pre;
+}
