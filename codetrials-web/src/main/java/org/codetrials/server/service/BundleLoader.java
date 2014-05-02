@@ -72,9 +72,9 @@ public class BundleLoader {
         }
     }
 
-    public boolean validateContainer(MultipartFile bundle) {
+    public boolean validateContainer(byte[] bytes) {
         try {
-            File tmp = saveAsTmp(bundle.getBytes());
+            File tmp = saveAsTmp(bytes);
             URL pathToJar = tmp.toURI().toURL();
             JarFile jar = new JarFile(pathToJar.getFile());
             Manifest manifest = jar.getManifest();

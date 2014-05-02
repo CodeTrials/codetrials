@@ -8,8 +8,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.sql.DataSource;
 import java.io.*;
 import java.net.URL;
@@ -22,8 +22,6 @@ import java.util.List;
 /**
  * @author qwwdfsad
  */
-
-
 public class BundleJdbcDao implements BundleDAO {
 
     private static final String BUNDLE_ROOT = "resources/bundles";
@@ -62,9 +60,17 @@ public class BundleJdbcDao implements BundleDAO {
     }
 
     @Override
-    public int addBundle(final String title, MultipartFile bundle) {
+    public int addBundle(final String title, MultipartFile file) {
+        try {
+            return addBundle(title, file.getBytes());
+        } catch (IOException e) {
+            throw new IllegalStateException(e);
+        }
+    }
 
-        if (!validator.validateContainer(bundle)) {
+    @Override
+    public int addBundle(final String title, byte[] fullFile) {
+        if (!validator.validateContainer(fullFile)) {
             return -1;
         }
 
@@ -86,11 +92,10 @@ public class BundleJdbcDao implements BundleDAO {
             String path = BUNDLE_ROOT + "/" + id;
             new File(path).mkdirs();
             String jarLocation = path;
-            save(bundle.getBytes(), new File(jarLocation).getAbsolutePath());
+            save(fullFile, new File(jarLocation).getAbsolutePath());
             extractSlides(jarLocation);
-        }
-        catch (Exception e) {
-            return -1;
+        } catch (Exception e) {
+            throw new IllegalStateException(e);
         }
 
         return id;
