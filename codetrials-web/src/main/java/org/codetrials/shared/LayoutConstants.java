@@ -8,7 +8,9 @@ public final class LayoutConstants {
 
     public static final String CONTAINER_ID = "container";
 
-    public static final String BUNDLE_UPLOAD_URL = "bundle/upload";
+    public static final String BUNDLE_UPLOAD_FORM_URL = "bundle/upload";
+    public static final String BUNDLE_UPLOAD_FORM_BUNDLE = "bundle";
+    public static final String BUNDLE_UPLOAD_FORM_TITLE = "title";
 
     public static final String CONSOLE_OUTPUT_CLASS = "jquery-console-message-value";
     public static final String CONSOLE_ERROR_CLASS = "jquery-console-message-error";

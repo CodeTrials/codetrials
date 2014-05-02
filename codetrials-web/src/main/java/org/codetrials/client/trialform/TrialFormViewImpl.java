@@ -23,7 +23,7 @@ class TrialFormViewImpl extends BaseView<TrialFormPresenter> implements TrialFor
     TrialFormViewImpl() {
         initWidget(UI_BINDER.createAndBindUi(this));
 
-        form.setAction(LayoutConstants.BUNDLE_UPLOAD_URL);
+        form.setAction(LayoutConstants.BUNDLE_UPLOAD_FORM_URL);
         form.setMethod(FormPanel.METHOD_POST);
         form.setEncoding(FormPanel.ENCODING_MULTIPART);
         form.addSubmitHandler(new FormPanel.SubmitHandler() {
