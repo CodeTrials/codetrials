@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = "org.codetrials.server")
+@ComponentScan("org.codetrials.server")
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
@@ -27,7 +27,6 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("index");
     }
 
     @Override

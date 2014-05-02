@@ -11,7 +11,7 @@ import javax.sql.DataSource;
  * @author Polyarnyi Nikolay
  */
 @Configuration
-@ComponentScan(basePackages = "com.codetrials.server")
+@ComponentScan("com.codetrials.server")
 public class AppConfig {
 
     @Bean

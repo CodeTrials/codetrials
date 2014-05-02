@@ -1,4 +1,8 @@
 <%@ page import="org.codetrials.shared.LayoutConstants" %>
+<%@ page import="org.springframework.web.context.WebApplicationContext" %>
+<%@ page import="org.springframework.web.context.support.WebApplicationContextUtils" %>
+<%@ page import="org.codetrials.server.service.TrialService" %>
+<%@ page import="com.google.gson.Gson" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -18,11 +22,7 @@
     <![endif]-->
 
     <script>
-        window.trials = [
-            { title: "Java", description: "Simple Java trial" },
-            { title: "Python 3", description: "Simple Py3 trial" },
-            { title: "JavaScript", description: "Simple JS trial" }
-        ];
+        window.trials = ${trials};
     </script>
 
     <script src="codetrials/codetrials.nocache.js"></script>
