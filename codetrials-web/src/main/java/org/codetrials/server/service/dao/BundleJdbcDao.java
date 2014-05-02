@@ -23,7 +23,7 @@ import java.util.List;
  * @author qwwdfsad
  */
 
-@Repository
+
 public class BundleJdbcDao implements BundleDAO {
 
     private static final String BUNDLE_ROOT = "resources/bundles";
