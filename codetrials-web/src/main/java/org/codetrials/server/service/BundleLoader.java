@@ -2,7 +2,7 @@ package org.codetrials.server.service;
 
 import org.codetrials.bundle.BundleContainer;
 import org.codetrials.bundle.helpers.ResourceLoader;
-import org.codetrials.server.exceptions.InvalidBundle;
+import org.codetrials.server.exceptions.InvalidBundleException;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -33,7 +33,7 @@ public class BundleLoader {
         this.cachedClasses = new HashMap<>();
     }
 
-    public BundleContainer createBundleContainer(URL bundlesRoot, int id) throws InvalidBundle {
+    public BundleContainer createBundleContainer(URL bundlesRoot, int id) throws InvalidBundleException {
         Class<BundleContainer> bundleClass = cachedClasses.get(id);
         if (bundleClass == null) {
             try {
@@ -47,9 +47,9 @@ public class BundleLoader {
                 bundleClass = (Class<BundleContainer>) classLoader.loadClass(className);
                 cachedClasses.put(id, bundleClass);
             } catch (MalformedURLException e) {
-                throw new InvalidBundle("Bad url was not found!", e);
+                throw new InvalidBundleException("Bad url was not found!", e);
             } catch (ClassNotFoundException e) {
-                throw new InvalidBundle("Bundle class was not found!", e);
+                throw new InvalidBundleException("Bundle class was not found!", e);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -60,9 +60,9 @@ public class BundleLoader {
             bundleContainer.initTasks();
             return bundleContainer;
         } catch (InstantiationException | IllegalAccessException e) {
-            throw new InvalidBundle("Bundle instantiation failure!", e);
+            throw new InvalidBundleException("Bundle instantiation failure!", e);
         } catch (MalformedURLException e) {
-            throw new InvalidBundle("Bad url for bundle task folder!", e);
+            throw new InvalidBundleException("Bad url for bundle task folder!", e);
         }
     }
 

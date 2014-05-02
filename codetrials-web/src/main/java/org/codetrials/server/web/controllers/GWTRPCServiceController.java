@@ -3,7 +3,7 @@ package org.codetrials.server.web.controllers;
 import org.codetrials.bundle.BundleContainer;
 import org.codetrials.bundle.entities.CommandOutput;
 import org.codetrials.bundle.entities.TaskDescription;
-import org.codetrials.server.exceptions.InvalidBundle;
+import org.codetrials.server.exceptions.InvalidBundleException;
 import org.codetrials.server.service.BundleLoader;
 import org.codetrials.server.service.TrialService;
 import org.codetrials.shared.entities.ExecutionResult;
@@ -58,7 +58,7 @@ public class GWTRPCServiceController extends AbstractRemoteService implements GW
             try {
                 bundle = bundleLoader.createBundleContainer(new URL(BUNDLES_ROOT), bundleId);
                 session.get().setAttribute(Integer.toString(bundleId), bundle);
-            } catch (InvalidBundle invalidBundle) {
+            } catch (InvalidBundleException invalidBundleException) {
                 return null;
             } catch (MalformedURLException e) {
                 throw new IllegalStateException(e);
