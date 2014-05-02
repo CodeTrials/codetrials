@@ -11,7 +11,7 @@ public abstract class Task {
 
     private final TaskDescription taskDescription;
 
-    protected Task(TaskDescription taskDescription) {
+    public Task(TaskDescription taskDescription) {
         this.taskDescription = taskDescription;
     }
 
