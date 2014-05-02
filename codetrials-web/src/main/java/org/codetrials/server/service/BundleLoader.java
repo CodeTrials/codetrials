@@ -70,9 +70,9 @@ public class BundleLoader {
         }
     }
 
-    public boolean validateContainer(MultipartFile bundle) {
+    public boolean validateContainer(byte[] bytes) {
         try {
-            File tmp = saveAsTmp(bundle.getBytes());
+            File tmp = saveAsTmp(bytes);
             BundleContainer bc =  createBundleContainer(tmp.toURI().toURL(), -1);
             tmp.delete();
             return true;

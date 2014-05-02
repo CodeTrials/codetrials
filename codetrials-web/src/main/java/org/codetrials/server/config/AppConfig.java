@@ -1,9 +1,11 @@
 package org.codetrials.server.config;
 
 import org.apache.commons.fileupload.disk.DiskFileItem;
+import org.apache.commons.io.IOUtils;
 import org.codetrials.server.service.BundleLoader;
 import org.codetrials.server.service.dao.BundleDAO;
 import org.codetrials.server.service.dao.BundleJdbcDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +15,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import javax.sql.DataSource;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 
@@ -49,10 +52,8 @@ public class AppConfig {
             }
 
             File file = new File(url.getFile());
-            DiskFileItem fileItem = new DiskFileItem("file", "text/plain", false, file.getName(), (int) file.length(), file.getParentFile());
-            fileItem.getOutputStream();
-            MultipartFile multipartFile = new CommonsMultipartFile(fileItem);
-            bd.addBundle("JavaScript", multipartFile);
+            byte[] fileBytes = IOUtils.toByteArray(new FileInputStream(file));
+            bd.addBundle("JavaScript", fileBytes);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
