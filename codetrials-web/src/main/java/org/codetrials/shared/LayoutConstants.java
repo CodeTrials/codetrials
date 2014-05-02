@@ -14,4 +14,12 @@ public final class LayoutConstants {
 
     public static final String CONSOLE_OUTPUT_CLASS = "jquery-console-message-value";
     public static final String CONSOLE_ERROR_CLASS = "jquery-console-message-error";
+
+    public static String bundleUploadFormBundle() {
+        return BUNDLE_UPLOAD_FORM_BUNDLE;
+    }
+
+    public static String bundleUploadFormTitle() {
+        return BUNDLE_UPLOAD_FORM_TITLE;
+    }
 }
