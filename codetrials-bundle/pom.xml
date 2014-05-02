@@ -33,6 +33,13 @@
             <artifactId>guava</artifactId>
             <version>17.0</version>
         </dependency>
+        <dependency>
+            <groupId>java.net</groupId>
+            <artifactId>jython</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/jython.jar</systemPath>
+        </dependency>
     </dependencies>
 
 </project>
