@@ -21,7 +21,9 @@ public class TrialService {
     public List<Trial> getTrials() {
         List<BundleDescription> descriptions = bundleDAO.getAllBundlesDescriptions();
         List<Trial> trials = new ArrayList<>();
-        //TODO
+        for (BundleDescription description : descriptions) {
+            trials.add(new Trial(description.getId(), description.getTitle(), description.getDescription()));
+        }
         return trials;
     }
 

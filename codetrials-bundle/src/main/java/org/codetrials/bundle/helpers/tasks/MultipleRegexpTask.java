@@ -55,16 +55,16 @@ public class MultipleRegexpTask extends Task {
     public TaskReaction onCommandExecuted(String command, ExecutionResult e) {
         if (finishCommand.equals(command)) {
             this.completed = true;
-            return new TaskReaction();
+            return new TaskReaction(true);
         }
         if (e.getException() != null) {
-            return new TaskReaction(hint);
+            return new TaskReaction(hint, true);
         }
         for (String regexp : regexps) {
             if (command.matches(regexp)) {
-                return new TaskReaction();
+                return new TaskReaction(true);
             }
         }
-        return new TaskReaction(hint);
+        return new TaskReaction(hint, true);
     }
 }

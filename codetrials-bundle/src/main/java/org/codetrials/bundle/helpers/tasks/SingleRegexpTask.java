@@ -34,6 +34,6 @@ public class SingleRegexpTask extends Task {
         if ((e == null || e.getException() == null) && command.matches(regexp)) {
             this.completed = true;
         }
-        return new TaskReaction();
+        return new TaskReaction(true);
     }
 }

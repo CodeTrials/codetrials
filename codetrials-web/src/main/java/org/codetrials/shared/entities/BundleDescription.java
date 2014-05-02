@@ -9,9 +9,14 @@ public class BundleDescription {
     private final String path;
     private final String description;
 
+    public int getId() {
+        return id;
+    }
+
     public String getDescription() {
         return description;
     }
+
     public String getPath() {
         return path;
     }
