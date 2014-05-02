@@ -1,27 +1,31 @@
 package org.codetrials.server.service.dao;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 import org.junit.Test;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import javax.sql.DataSource;
 import java.util.List;
 
-public class BundleJdbcDaoTest extends TestCase {
+public class BundleJdbcDaoTest {
 
     DataSource getDriverManagerDataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost/codeTrialsDB");
-        dataSource.setUsername("codeTrials");
-        dataSource.setPassword("12345");
+        dataSource.setDriverClassName("org.apache.derby.jdbc.EmbeddedDriver");
+        dataSource.setUrl("jdbc:derby:testDerbyDB;create=true");
+        dataSource.setUsername("");
+        dataSource.setPassword("");
         return dataSource;
     }
 
     @Test
-    public void test() {
+    public void basicTest() {
+        final String bundleName = "js bundle";
         DataSource ds = getDriverManagerDataSource();
         BundleDAO bDAO = new BundleJdbcDao(ds);
+        bDAO.addBundle(bundleName, null);
         List<BundleDescription> list = bDAO.getAllBundlesDescriptions();
+        assertEquals(list.size(), 1);
+        assertEquals(bundleName, list.get(0).getTitle());
     }
 }

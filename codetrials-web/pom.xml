@@ -153,6 +153,11 @@
             <version>4.0.3.RELEASE</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>10.10.2.0</version>
+        </dependency>
 
     </dependencies>
 </project>
