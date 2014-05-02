@@ -3,8 +3,12 @@
         <g:HTMLPanel addStyleNames="panel panel-default">
             <div class="panel-body">
                 <div class="form-group">
+                    <label>Title</label>
+                    <g:TextBox styleName="form-control" name="title"/>
+                </div>
+                <div class="form-group">
                     <label>Bundle</label>
-                    <g:FileUpload ui:field="file"/>
+                    <g:FileUpload name="bundle" ui:field="file"/>
                     <p class="help-block">Choose bundle to upload</p>
                 </div>
                 <button class="btn btn-default" type="submit">Submit</button>
