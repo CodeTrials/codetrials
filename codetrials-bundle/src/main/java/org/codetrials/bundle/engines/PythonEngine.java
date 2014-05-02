@@ -62,4 +62,10 @@ public class PythonEngine implements BundleEngine {
         balance = 0;
     }
 
+    public static void main(String[] args) {
+        PythonEngine engine = new PythonEngine();
+        ExecutionResult res = engine.exec("(1 + 2)");
+        System.out.println(res.getExecutionOutput());
+    }
+
 }

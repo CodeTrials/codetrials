@@ -8,6 +8,7 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 
 
 public class JavaScriptEngine implements BundleEngine {
@@ -18,7 +19,7 @@ public class JavaScriptEngine implements BundleEngine {
     private int balance;
 
     private ByteArrayOutputStream commandOutput;
-    private PrintStream commandPrintStream;
+    private PrintWriter commandPrintWriter;
 
     private static final PrintStream stdout = System.out;
 
@@ -31,7 +32,9 @@ public class JavaScriptEngine implements BundleEngine {
         balance = 0;
 
         commandOutput = new ByteArrayOutputStream();
-        commandPrintStream = new PrintStream(commandOutput);
+        commandPrintWriter = new PrintWriter(commandOutput);
+
+        engine.getContext().setWriter(commandPrintWriter);
     }
 
     @Override
@@ -45,9 +48,7 @@ public class JavaScriptEngine implements BundleEngine {
         bufferPrintStream.flush();
         if (balance == 0) {
             try {
-                System.setOut(commandPrintStream);
                 Object res = engine.eval(buffer.toString());
-                System.setOut(stdout);
                 String ret = commandOutput.toString() + (res == null ? "" : res.toString() + "\n");
                 reset();
                 return new ExecutionResult(ret, null);
