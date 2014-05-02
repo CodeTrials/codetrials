@@ -38,8 +38,8 @@ div.console div.jquery-console-message-error {
     padding: 0.1em;
 }
 
-div.console div.jquery-console-message-type {
-    color: #52666f;
+div.console div.jquery-console-message-hint {
+    color: #1faee9;
     font-family: monospace;
     padding: 0.1em;
 }

@@ -3,7 +3,7 @@
         <div class="col-md-4">
             <div class="jumbotron">
                 <div class="progress">
-                    <div class="progress" ui:field="progress"> </div>
+                    <div class="progress-bar" ui:field="progress"> </div>
                 </div>
                 <h3 ui:field="title"> </h3>
                 <div ui:field="description"> </div>

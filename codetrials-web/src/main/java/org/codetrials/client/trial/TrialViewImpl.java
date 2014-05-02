@@ -33,7 +33,7 @@ class TrialViewImpl extends BaseView<TrialPresenter> implements TrialView {
 
     @Override
     public void setProgress(int done, int tasks) {
-        progress.setAttribute("style", "width: " + (done / tasks) + "%;");
+        progress.setAttribute("style", "min-width: 40px; width: " + ((float) done / tasks * 100) + "%;");
         progress.setInnerHTML(done + "/" + tasks);
     }
 

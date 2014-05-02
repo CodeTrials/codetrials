@@ -56,11 +56,22 @@ class TrialPresenterImpl extends BasePresenter<TrialView> implements TrialPresen
                 public void onSuccess(ExecutionResult result) {
                     if (result.isCommandFinished()) {
                         console.setPromptContinued(false);
-                        JsList<ConsoleMessage> messages = NativeUtils.listOf(ConsoleMessage.of(result.getOutput(), LayoutConstants.CONSOLE_OUTPUT_CLASS));
+
+                        JsList<ConsoleMessage> messages = NativeUtils.list();
+                        if (result.getOutput() != null) {
+                            messages.push(ConsoleMessage.of(result.getOutput(), LayoutConstants.CONSOLE_OUTPUT_CLASS));
+                        }
                         if (result.getError() != null) {
                             messages.push(ConsoleMessage.of(result.getError(), LayoutConstants.CONSOLE_ERROR_CLASS));
                         }
+                        if (result.getHint() != null) {
+                            messages.push(ConsoleMessage.of(result.getHint(), LayoutConstants.CONSOLE_HINT_CLASS));
+                        }
                         reporter.report(messages);
+
+                        if (result.getNewTask() != null) {
+                            onTaskChange(result.getNewTask());
+                        }
                     } else {
                         if (!console.isPromptContinued()) {
                             console.setPromptContinued(true);
@@ -98,5 +109,6 @@ class TrialPresenterImpl extends BasePresenter<TrialView> implements TrialPresen
     private void onTaskChange(Task task) {
         this.currentTask = task;
         view.setTaskLegend(task.getTitle(), Markdown.convert(task.getDescription()));
+        view.setProgress(task.getID(), currentTrial.getTaskCount());
     }
 }
