@@ -1,6 +1,8 @@
 package org.codetrials.server.config;
 
 import org.codetrials.server.service.BundleLoader;
+import org.codetrials.server.service.dao.BundleDAO;
+import org.codetrials.server.service.dao.BundleJdbcDao;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -27,5 +29,11 @@ public class AppConfig {
         dataSource.setUsername("");
         dataSource.setPassword("");
         return dataSource;
+    }
+
+    @Bean
+    BundleDAO getBundleDao(DataSource ds, BundleLoader bl) {
+        BundleDAO bd = new BundleJdbcDao(ds, bl);
+        return bd;
     }
 }
