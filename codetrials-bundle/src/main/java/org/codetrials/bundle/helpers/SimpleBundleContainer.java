@@ -15,6 +15,10 @@ public abstract class SimpleBundleContainer extends BundleContainer {
     private List<Task> tasks;
     private int currentStep = 0;
 
+    protected SimpleBundleContainer(BundleEngine engine) {
+        super(engine);
+    }
+
     protected void initTasks() {
         tasks = createTasks();
     }
