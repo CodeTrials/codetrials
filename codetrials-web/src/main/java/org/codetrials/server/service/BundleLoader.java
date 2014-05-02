@@ -3,7 +3,11 @@ package org.codetrials.server.service;
 import org.codetrials.bundle.BundleContainer;
 import org.codetrials.bundle.helpers.ResourceLoader;
 import org.codetrials.server.exceptions.InvalidBundleException;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -19,13 +23,13 @@ import java.util.jar.Manifest;
  */
 public class BundleLoader {
 
-    private static final String BUNDLE_CONTAINER_MANIFEST_ATTRIBUTE = "Bundle";
+    public static final String BUNDLE_CONTAINER_MANIFEST_ATTRIBUTE = "Bundle";
 
-    private static final String BUNDLES_FOLDER = "bundles/";
-    private static final String BUNDLE_JAR_NAME = "bundle.jar";
+    public static final String BUNDLES_FOLDER = "bundles/";
+    public static final String BUNDLE_JAR_NAME = "bundle.jar";
 
-    private static final String BUNDLE_TASK_FOLDER = "tasks";
-    private static final String BUNDLE_TASK_FILENAME = "slides.txt";
+    public static final String BUNDLE_TASK_FOLDER = "tasks";
+    public static final String BUNDLE_TASK_FILENAME = "slides.txt";
 
     Map<Integer, Class<BundleContainer>> cachedClasses;
 
@@ -64,6 +68,26 @@ public class BundleLoader {
         } catch (MalformedURLException e) {
             throw new InvalidBundleException("Bad url for bundle task folder!", e);
         }
+    }
+
+    public boolean validateContainer(MultipartFile bundle) {
+        try {
+            File tmp = saveAsTmp(bundle.getBytes());
+            BundleContainer bc =  createBundleContainer(tmp.toURI().toURL(), -1);
+            tmp.delete();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    private File saveAsTmp(byte[] bytes) throws IOException {
+        File tmp = File.createTempFile("BULLSHIT", null);
+        try (BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(tmp));) {
+            bos.write(bytes);
+            bos.flush();
+        }
+        return tmp;
     }
 
 }
