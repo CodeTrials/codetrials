@@ -4,6 +4,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import org.codetrials.bundle.entities.TaskDescription;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -30,7 +31,7 @@ public class ResourceLoader {
     }
 
     public TaskDescription loadTaskDescription(int index) throws IOException {
-        URL url = Resources.getResource(prefix + index + suffix);
+        URL url = new File(prefix + index + suffix).toURI().toURL();
         String text = Resources.toString(url, getEncoding());
         int firstLineEnd = text.indexOf('\n');
         return new TaskDescription(text.substring(0, firstLineEnd), text.substring(firstLineEnd + 1));

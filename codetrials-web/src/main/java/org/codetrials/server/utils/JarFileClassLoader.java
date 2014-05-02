@@ -9,8 +9,8 @@ import java.net.URLClassLoader;
  */
 public class JarFileClassLoader extends URLClassLoader {
 
-    public JarFileClassLoader(URL pathToJar) throws MalformedURLException {
-        super(new URL[]{new URL("jar:file://" + pathToJar.toString() + "!/")});
+    public JarFileClassLoader(String pathToJar) throws MalformedURLException {
+        super(new URL[]{new URL("jar:" + pathToJar + "!/")});
     }
 
 }

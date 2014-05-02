@@ -3,7 +3,6 @@ package org.codetrials.bundle.helpers;
 import org.codetrials.bundle.BundleContainer;
 import org.codetrials.bundle.Task;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,8 +12,12 @@ import java.util.List;
  */
 public abstract class SimpleBundleContainer extends BundleContainer {
 
-    private final List<Task> tasks = createTasks();
+    private List<Task> tasks;
     private int currentStep = 0;
+
+    protected void initTasks() {
+        tasks = createTasks();
+    }
 
     abstract protected List<Task> createTasks();
 

@@ -4,11 +4,18 @@ import org.codetrials.bundle.entities.CommandOutput;
 import org.codetrials.bundle.entities.ExecutionResult;
 import org.codetrials.bundle.entities.TaskDescription;
 import org.codetrials.bundle.entities.TaskReaction;
+import org.codetrials.bundle.helpers.tasks.ResourceLoader;
 
 /**
  * @author Polyarnyi Nikolay
  */
 public abstract class BundleContainer {
+
+    protected ResourceLoader resourceLoader;
+
+    public void setResourceLoader(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
 
     public CommandOutput processCommand(String command) {
         Task currentTask = getCurrentTask();
