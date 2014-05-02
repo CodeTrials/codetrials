@@ -46,8 +46,8 @@ public class BundleLoader {
                 Manifest manifest = jar.getManifest();
                 Attributes attributes = manifest.getMainAttributes();
                 String className = attributes.getValue(BUNDLE_CONTAINER_MANIFEST_ATTRIBUTE);
-                ClassLoader classLoader = new URLClassLoader(new URL[]{new URL("jar", "", pathToJar + "!/")});
-                bundleClass = (Class<BundleContainer>) classLoader.loadClass(className);
+                ClassLoader classLoader = URLClassLoader.newInstance(new URL[]{new URL("jar:" + pathToJar + "!/")}, getClass().getClassLoader());
+                bundleClass = (Class<BundleContainer>) Class.forName(className, true, classLoader);
                 if (id != -1) {
                     cachedClasses.put(id, bundleClass);
                 }
@@ -79,8 +79,8 @@ public class BundleLoader {
             Manifest manifest = jar.getManifest();
             Attributes attributes = manifest.getMainAttributes();
             String className = attributes.getValue(BUNDLE_CONTAINER_MANIFEST_ATTRIBUTE);
-            ClassLoader classLoader = new URLClassLoader(new URL[]{new URL("jar", "", pathToJar + "!/")});
-            Class<BundleContainer> bundleClass = (Class<BundleContainer>) classLoader.loadClass(className);
+            ClassLoader load = URLClassLoader.newInstance(new URL[]{new URL("jar:" + pathToJar + "!/")}, getClass().getClassLoader());
+            Class<BundleContainer> bundleClass = (Class<BundleContainer>) Class.forName(className, true, load);
 
             tmp.delete();
             return true;
