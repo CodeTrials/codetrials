@@ -9,6 +9,10 @@ public class TaskReaction {
 
     private final String hint;
 
+    public TaskReaction() {
+        this(null);
+    }
+
     public TaskReaction(String hint) {
         this.hint = hint;
     }

@@ -12,7 +12,7 @@ public class ExecutionResult {
     private final String executionOutput;
     private final CommandException exception;
 
-    private ExecutionResult(String executionOutput, CommandException exception) {
+    public ExecutionResult(String executionOutput, CommandException exception) {
         this.executionOutput = executionOutput;
         this.exception = exception;
     }
