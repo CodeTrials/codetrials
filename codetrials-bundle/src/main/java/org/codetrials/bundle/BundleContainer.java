@@ -1,5 +1,6 @@
 package org.codetrials.bundle;
 
+import org.codetrials.bundle.engines.BundleEngine;
 import org.codetrials.bundle.entities.CommandOutput;
 import org.codetrials.bundle.entities.ExecutionResult;
 import org.codetrials.bundle.entities.TaskDescription;
@@ -9,6 +10,12 @@ import org.codetrials.bundle.entities.TaskReaction;
  * @author Polyarnyi Nikolay
  */
 public abstract class BundleContainer {
+
+    private BundleEngine engine;
+
+    protected BundleContainer(BundleEngine engine) {
+        this.engine = engine;
+    }
 
     public CommandOutput processCommand(String command) {
         Task currentTask = getCurrentTask();
@@ -50,7 +57,9 @@ public abstract class BundleContainer {
 
     protected abstract void moveToNextTask();
 
-    protected abstract ExecutionResult executeCommand(String command);
+    protected ExecutionResult executeCommand(String command) {
+        return engine.exec(command);
+    }
 
 
 }
