@@ -12,5 +12,4 @@ public interface BundleDAO {
     public List<BundleDescription> getAllBundlesDescriptions();
 
     public int addBundle(String title, MultipartFile bundle);
-
 }
