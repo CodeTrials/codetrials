@@ -92,7 +92,9 @@ public class BundleJdbcDao implements BundleDAO {
         int id = holder.getKey().intValue();
         try {
             String path = BUNDLE_ROOT + "/" + id;
-            new File(path).mkdirs();
+            File f = new File(path);
+            f.getParentFile().mkdirs();
+            f.createNewFile();
             String jarLocation = path;
             save(fullFile, new File(jarLocation).getAbsolutePath());
             extractSlides(jarLocation);
