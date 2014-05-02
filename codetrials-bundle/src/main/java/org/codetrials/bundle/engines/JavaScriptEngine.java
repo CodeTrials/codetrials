@@ -8,44 +8,53 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 
 
 public class JavaScriptEngine implements BundleEngine {
 
     private ScriptEngine engine;
     private ByteArrayOutputStream buffer;
-    private PrintWriter pw;
+    private PrintStream bufferPrintStream;
     private int balance;
+
+    private ByteArrayOutputStream commandOutput;
+    private PrintStream commandPrintStream = new PrintStream(commandOutput);
+
+    private static final PrintStream stdout = System.out;
 
     public JavaScriptEngine() {
         ScriptEngineManager factory = new ScriptEngineManager();
         engine = factory.getEngineByName("nashorn");
 
         buffer = new ByteArrayOutputStream();
-        pw = new PrintWriter(buffer);
+        bufferPrintStream = new PrintStream(buffer);
         balance = 0;
+
+        commandOutput = new ByteArrayOutputStream();
+        commandPrintStream = new PrintStream(commandOutput);
     }
 
     @Override
     public ExecutionResult exec(String command) {
         boolean balanceOK = updateBalance(command);
         if (!balanceOK) {
+            reset();
             return new ExecutionResult(null, new CommandException("Wrong brace sequence"));
         }
-        pw.println(command);
+        bufferPrintStream.println(command);
+        bufferPrintStream.flush();
         if (balance == 0) {
-            ByteArrayOutputStream bout = new ByteArrayOutputStream();
             try {
-                PrintStream stdout = System.out;
-                PrintStream ps = new PrintStream(bout);
-                System.setOut(ps);
+                System.setOut(commandPrintStream);
                 engine.eval(buffer.toString()); // returned value is ignored
                 System.setOut(stdout);
-                buffer.reset();
-                return new ExecutionResult(bout.toString(), null);
+                String ret = commandOutput.toString();
+                reset();
+                return new ExecutionResult(ret, null);
             } catch (ScriptException ex) {
-                return new ExecutionResult(bout.toString(), new CommandException(ex.getMessage(), ex));
+                String ret = commandOutput.toString();
+                reset();
+                return new ExecutionResult(ret, new CommandException(ex.getMessage(), ex));
             }
         } else {
             return null;
@@ -66,5 +75,11 @@ public class JavaScriptEngine implements BundleEngine {
             }
         }
         return true;
+    }
+
+    private void reset() {
+        buffer.reset();
+        commandOutput.reset();
+        balance = 0;
     }
 }
