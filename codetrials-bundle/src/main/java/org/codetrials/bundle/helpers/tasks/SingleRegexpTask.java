@@ -12,11 +12,17 @@ public class SingleRegexpTask extends Task {
 
     private final String regexp;
     private boolean completed;
+    private String hint;
 
     public SingleRegexpTask(TaskDescription taskDescription, String regexp) {
+        this(taskDescription, regexp, null);
+    }
+
+    public SingleRegexpTask(TaskDescription taskDescription, String regexp, String hint) {
         super(taskDescription);
         this.regexp = regexp;
         this.completed = false;
+        this.hint = hint;
     }
 
     @Override
@@ -34,6 +40,6 @@ public class SingleRegexpTask extends Task {
         if ((e == null || e.getException() == null) && command.matches(regexp)) {
             this.completed = true;
         }
-        return new TaskReaction();
+        return new TaskReaction(this.completed ? null : hint);
     }
 }
