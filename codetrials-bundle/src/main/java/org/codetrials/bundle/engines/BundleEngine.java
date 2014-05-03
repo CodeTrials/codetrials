@@ -2,8 +2,8 @@ package org.codetrials.bundle.engines;
 
 import org.codetrials.bundle.entities.ExecutionResult;
 
-public interface BundleEngine {
+public abstract class BundleEngine {
 
-    public ExecutionResult exec(String command);
+    public abstract ExecutionResult exec(String command);
 
 }
