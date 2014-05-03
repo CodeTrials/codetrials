@@ -37,7 +37,10 @@ class TrialFormViewImpl extends BaseView<TrialFormPresenter> implements TrialFor
         form.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
             @Override
             public void onSubmitComplete(FormPanel.SubmitCompleteEvent event) {
-                presenter.onBundleUploaded(event.getResults());
+                String html = event.getResults();
+                int len = html.length();
+                String json = html.substring(59, len - 6);
+                presenter.onBundleUploaded(json);
             }
         });
     }

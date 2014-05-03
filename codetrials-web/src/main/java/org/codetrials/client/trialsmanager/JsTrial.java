@@ -1,11 +1,12 @@
 package org.codetrials.client.trialsmanager;
 
 import com.google.gwt.core.client.JavaScriptObject;
+import org.codetrials.shared.entities.Trial;
 
 /**
  * @author Nikita Zyulyaev
  */
-class JsTrial extends JavaScriptObject {
+public class JsTrial extends JavaScriptObject {
     protected JsTrial() {
     }
 
@@ -24,4 +25,8 @@ class JsTrial extends JavaScriptObject {
     public final native int getTaskCount() /*-{
         return this.taskCount;
     }-*/;
+
+    public final Trial toTrial() {
+        return new Trial(getId(), getTitle(), getDescription(), getTaskCount());
+    }
 }

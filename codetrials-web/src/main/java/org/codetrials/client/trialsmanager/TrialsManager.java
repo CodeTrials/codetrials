@@ -1,6 +1,10 @@
 package org.codetrials.client.trialsmanager;
 
+import com.google.inject.Inject;
 import com.google.inject.Singleton;
+import org.codetrials.client.core.events.EventBus;
+import org.codetrials.client.core.events.EventType;
+import org.codetrials.client.core.events.Handler;
 import org.codetrials.client.core.natives.JsList;
 import org.codetrials.shared.entities.Trial;
 
@@ -12,14 +16,23 @@ import java.util.List;
  */
 @Singleton
 public class TrialsManager {
+    public static final EventType<Trial> NEW_TRIAL = new EventType<>("NEW_TRIAL");
+
     private final List<Trial> trials = new ArrayList<>();
 
-    public TrialsManager() {
+    @Inject
+    public TrialsManager(EventBus bus) {
         getTrialsFromWindow().forEach(new JsList.Applier<JsTrial>() {
             @Override
             public void apply(JsTrial element, int index, JsList<? extends JsTrial> list) {
-                trials.add(new Trial(element.getId(), element.getTitle(), element.getDescription(),
-                        element.getTaskCount()));
+                trials.add(element.toTrial());
+            }
+        });
+
+        bus.subscribe(NEW_TRIAL, new Handler<Trial>() {
+            @Override
+            public void handle(Trial event) {
+                trials.add(event);
             }
         });
     }
