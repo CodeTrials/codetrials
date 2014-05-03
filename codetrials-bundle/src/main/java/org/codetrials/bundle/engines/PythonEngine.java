@@ -1,77 +1,24 @@
 package org.codetrials.bundle.engines;
 
-import org.codetrials.bundle.entities.ExecutionResult;
-import org.codetrials.bundle.exceptions.CommandException;
-
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineFactory;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-import java.io.PrintWriter;
+import java.util.Arrays;
 
 /**
  * Created by vlpolyansky.
  */
-public class PythonEngine extends BundleEngine {
-
-    private ScriptEngine engine;
-    private ByteArrayOutputStream buffer;
-    private PrintStream bufferPrintStream;
-    private int balance;
-
-    private ByteArrayOutputStream commandOutput;
-    private PrintWriter commandPrintWriter;
+public class PythonEngine extends StandardEngine {
 
     public PythonEngine() {
-        ScriptEngineManager factory = new ScriptEngineManager();
-        engine = factory.getEngineByName("jython");
-
-        buffer = new ByteArrayOutputStream();
-        bufferPrintStream = new PrintStream(buffer);
-        balance = 0;
-
-        commandOutput = new ByteArrayOutputStream();
-        commandPrintWriter = new PrintWriter(commandOutput);
-
-        engine.getContext().setWriter(commandPrintWriter);
+        super("jython");
     }
 
-    @Override
-    public ExecutionResult exec(String command) {
-        updateBalance(command);
-        bufferPrintStream.println(command);
-        bufferPrintStream.flush();
-        if (balance == 0) {
-            try {
-                Object res = engine.eval(buffer.toString());
-                commandPrintWriter.flush();
-                String ret = commandOutput.toString() + (res == null ? "" : res.toString() + "\n");
-                reset();
-                return new ExecutionResult(ret, null);
-            } catch (ScriptException ex) {
-                String ret = commandOutput.toString();
-                reset();
-                return new ExecutionResult(ret, new CommandException(ex.getMessage(), ex));
-            }
-        } else {
-            return null;
-        }
-    }
-
-    private boolean updateBalance(String command) {
+    protected boolean updateBalance(String command) {
+        System.err.println("line: '" + command + "' len = " + command.length() + " bytes = "
+        + Arrays.toString(command.getBytes()));
         if (command.trim().endsWith(":")) {
             balance++;
         } else if (command.trim().length() == 0) {
             balance = 0;
         }
         return true;
-    }
-
-    private void reset() {
-        buffer.reset();
-        commandOutput.reset();
-        balance = 0;
     }
 }
