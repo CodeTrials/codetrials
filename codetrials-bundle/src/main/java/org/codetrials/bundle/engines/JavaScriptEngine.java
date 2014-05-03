@@ -7,11 +7,20 @@ public class JavaScriptEngine extends StandardEngine {
     }
 
     protected boolean updateBalance(String command) {
-        boolean insideComment = false;
+        command = command.substring(0, (command + "//").indexOf("//"));
+        boolean insideString = false;
+        char stringType = 0;
         for (int i = 0; i < command.length(); ++i) {
-            if (command.charAt(i) == '{') {
+            if (command.charAt(i) == '\'' || command.charAt(i) == '"') {
+                if (!insideString) {
+                    insideString = true;
+                    stringType = command.charAt(i);
+                } else if (insideString && stringType == command.charAt(i)) {
+                    insideString = false;
+                }
+            } else if (command.charAt(i) == '{' && !insideString) {
                 balance++;
-            } else if (command.charAt(i) == '}') {
+            } else if (command.charAt(i) == '}' && !insideString) {
                 if (balance == 0) {
                     return false;
                 } else {
