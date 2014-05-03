@@ -41,22 +41,40 @@ public class AppConfig {
         return dataSource;
     }
 
+
     @Bean
     BundleDAO getBundleDao(DataSource ds, BundleLoader bl) {
         BundleDAO bd = new BundleJdbcDao(ds, bl);
         try {
-            URL url = getClass().getClassLoader().getResource("javascriptBundle.jar");
-
-            if (url == null) {
-                throw new IllegalStateException("Default bundle not found!");
-            }
-
-            File file = new File(url.getFile());
-            byte[] fileBytes = IOUtils.toByteArray(new FileInputStream(file));
-            bd.addBundle("JavaScript", fileBytes);
+            addJavaScriptTutorial(bd);
+            addPythonSandbox(bd);
         } catch (IOException e) {
             throw new IllegalStateException(e);
         }
         return bd;
+    }
+
+    private void addJavaScriptTutorial(BundleDAO bd) throws IOException {
+        URL url = getClass().getClassLoader().getResource("javascriptBundle.jar");
+
+        if (url == null) {
+            throw new IllegalStateException("Default bundle not found!");
+        }
+
+        File file = new File(url.getFile());
+        byte[] fileBytes = IOUtils.toByteArray(new FileInputStream(file));
+        bd.addBundle("JavaScript", fileBytes);
+    }
+
+    private void addPythonSandbox(BundleDAO bd) throws IOException {
+        URL url = getClass().getClassLoader().getResource("pythonSandboxBundle.jar");
+
+        if (url == null) {
+            throw new IllegalStateException("Default bundle not found!");
+        }
+
+        File file = new File(url.getFile());
+        byte[] fileBytes = IOUtils.toByteArray(new FileInputStream(file));
+        bd.addBundle("Python", fileBytes);
     }
 }

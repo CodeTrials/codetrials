@@ -1,6 +1,5 @@
 package org.codetrials.bundle.engines;
 
-import com.sun.script.jython.JythonScriptEngineFactory;
 import org.codetrials.bundle.entities.ExecutionResult;
 import org.codetrials.bundle.exceptions.CommandException;
 
@@ -26,8 +25,8 @@ public class PythonEngine extends BundleEngine {
     private PrintWriter commandPrintWriter;
 
     public PythonEngine() {
-        ScriptEngineFactory factory = new JythonScriptEngineFactory();
-        engine = factory.getScriptEngine();
+        ScriptEngineManager factory = new ScriptEngineManager();
+        engine = factory.getEngineByName("jython");
 
         buffer = new ByteArrayOutputStream();
         bufferPrintStream = new PrintStream(buffer);
@@ -72,6 +71,7 @@ public class PythonEngine extends BundleEngine {
 
     private void reset() {
         buffer.reset();
+        commandOutput.reset();
         balance = 0;
     }
 }
