@@ -66,7 +66,7 @@
             // tab
             18: doNothing,
             // tab
-            9: doComplete
+            9: doTab
         };
         var ctrlCodes = {
             // C-a
@@ -671,6 +671,12 @@
                     extern.promptText(prompt);
                 }
             }
+        };
+
+        function doTab() {
+            promptText += "    ";
+            moveColumn(4);
+            updatePromptDisplay();
         };
 
         function doNothing() {};
