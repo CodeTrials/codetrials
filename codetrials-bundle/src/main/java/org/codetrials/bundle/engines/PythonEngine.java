@@ -1,7 +1,5 @@
 package org.codetrials.bundle.engines;
 
-import java.util.Arrays;
-
 /**
  * Created by vlpolyansky.
  */
@@ -12,8 +10,7 @@ public class PythonEngine extends StandardEngine {
     }
 
     protected boolean updateBalance(String command) {
-        System.err.println("line: '" + command + "' len = " + command.length() + " bytes = "
-        + Arrays.toString(command.getBytes()));
+        command = command.substring(0, (command + '#').indexOf('#'));
         if (command.trim().endsWith(":")) {
             balance++;
         } else if (command.trim().length() == 0) {
