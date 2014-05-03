@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import org.codetrials.server.service.TrialService;
 import org.codetrials.server.service.dao.BundleDAO;
 import org.codetrials.shared.LayoutConstants;
+import org.codetrials.shared.entities.UploadResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -29,17 +30,19 @@ public class IndexController {
     }
 
     @RequestMapping(value = LayoutConstants.BUNDLE_UPLOAD_FORM_URL, method = RequestMethod.POST)
-    public @ResponseBody String upload(@RequestParam(LayoutConstants.BUNDLE_UPLOAD_FORM_TITLE) String title,
-                         @RequestParam(LayoutConstants.BUNDLE_UPLOAD_FORM_BUNDLE) MultipartFile file) {
+    @ResponseBody
+    public UploadResult upload(
+            @RequestParam(LayoutConstants.BUNDLE_UPLOAD_FORM_TITLE) String title,
+            @RequestParam(LayoutConstants.BUNDLE_UPLOAD_FORM_BUNDLE) MultipartFile file) {
         try {
             int id = bundleDAOService.addBundle(title, file.getBytes());
             if (id == -1) {
-                return "Bad bundle";
+                return new UploadResult(false, "Bad bundle", null);
             } else {
-                return "Bundle uploaded successfully";
+                return new UploadResult(true, "Bundle uploaded successfully", service.getTrialById(id));
             }
         } catch (IOException e) {
-            return "Failed to upload";
+            return new UploadResult(false, "Failed to upload", null);
         }
     }
 }

@@ -4,10 +4,12 @@ import org.apache.commons.io.IOUtils;
 import org.codetrials.server.service.BundleLoader;
 import org.codetrials.shared.entities.BundleDescription;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.DataSource;
@@ -24,9 +26,19 @@ import java.util.zip.ZipFile;
 /**
  * @author qwwdfsad
  */
+@Repository
 public class BundleJdbcDao implements BundleDAO {
-
     public static final String BUNDLE_ROOT = "resources/bundles/";
+
+    private static final BundleDescriptionMapper ROW_MAPPER = new BundleDescriptionMapper();
+    private static final String FIND_BY_ID = "SELECT * FROM bundleinfo where id = ?";
+    private static final String FIND_ALL = "SELECT * FROM bundleinfo";
+    private static final String INIT_QUERY = "CREATE TABLE bundleinfo " +
+            "(id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, " +
+            "title VARCHAR(50), " +
+            "path VARCHAR(50)," +
+            "description VARCHAR(100)," +
+            "taskCount INT)";
 
     private final DataSource dataSource;
     private final BundleLoader validator;
@@ -39,27 +51,25 @@ public class BundleJdbcDao implements BundleDAO {
     }
 
     private void initialize() {
-        final String query = "CREATE TABLE bundleinfo " +
-                "(id INT PRIMARY KEY GENERATED ALWAYS AS IDENTITY, " +
-                "title VARCHAR(50), " +
-                "path VARCHAR(50)," +
-                "description VARCHAR(100)," +
-                "taskCount INT)";
         JdbcTemplate template = new JdbcTemplate(dataSource);
 
         try {
             template.execute("DROP TABLE bundleinfo");
-        } catch (Exception e) {
-
+        } catch (DataAccessException ignored) {
+            // ignore
         } finally {
-            template.execute(query);
+            template.execute(INIT_QUERY);
         }
     }
 
     @Override
     public List<BundleDescription> getAllBundlesDescriptions() {
-        final String query = "SELECT * FROM bundleinfo";
-        return new JdbcTemplate(dataSource).query(query, new BundleDescriptionMapper());
+        return new JdbcTemplate(dataSource).query(FIND_ALL, ROW_MAPPER);
+    }
+
+    @Override
+    public BundleDescription getBundleById(int id) {
+        return new JdbcTemplate(dataSource).queryForObject(FIND_BY_ID, new Object[]{id}, ROW_MAPPER);
     }
 
     @Override

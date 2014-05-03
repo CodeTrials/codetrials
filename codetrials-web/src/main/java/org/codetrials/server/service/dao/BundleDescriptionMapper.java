@@ -9,9 +9,9 @@ import java.sql.SQLException;
 /**
  * @author qwwdfsad
  */
-public class BundleDescriptionMapper implements RowMapper {
+public class BundleDescriptionMapper implements RowMapper<BundleDescription> {
 
-    public Object mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public BundleDescription mapRow(ResultSet rs, int rowNum) throws SQLException {
         return new BundleDescription(rs.getInt("id"), rs.getString("title"), rs.getString("path"), rs.getString("description"),
                 rs.getInt("taskCount"));
     }

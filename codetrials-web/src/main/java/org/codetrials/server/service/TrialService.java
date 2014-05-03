@@ -31,9 +31,7 @@ public class TrialService {
         List<Trial> trials = new ArrayList<>();
         try {
             for (BundleDescription description : descriptions) {
-                BundleContainer bundleContainer = bundleLoader.createBundleContainer(new URL("file:" + BundleJdbcDao.BUNDLE_ROOT), description.getId());
-                trials.add(new Trial(description.getId(), description.getTitle(), bundleContainer.getBundleDescription(),
-                        bundleContainer.getTotalStepsCount()));
+                trials.add(makeTrial(description));
             }
         } catch (InvalidBundleException | MalformedURLException e) {
             throw new IllegalStateException(e);
@@ -41,4 +39,21 @@ public class TrialService {
         return trials;
     }
 
+    public Trial getTrialById(int id) {
+        BundleDescription description = bundleDAO.getBundleById(id);
+        if (description != null) {
+            try {
+                return makeTrial(description);
+            } catch (InvalidBundleException | MalformedURLException e) {
+                throw new IllegalStateException(e);
+            }
+        }
+        return null;
+    }
+
+    private Trial makeTrial(BundleDescription description) throws InvalidBundleException, MalformedURLException {
+        BundleContainer bundleContainer = bundleLoader.createBundleContainer(new URL("file:" + BundleJdbcDao.BUNDLE_ROOT), description.getId());
+        return new Trial(description.getId(), description.getTitle(), bundleContainer.getBundleDescription(),
+                bundleContainer.getTotalStepsCount());
+    }
 }
